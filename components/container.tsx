@@ -7,13 +7,13 @@ interface ContainerProps {
 
 export function Container({ children, className }: ContainerProps) {
   return (
-    <main
+    <div
       className={cn(
-        'mx-auto flex w-full max-w-(--breakpoint-xl) flex-col gap-20 px-5 pt-10 md:px-10',
+        'mx-auto w-full max-w-(--breakpoint-xl) gap-20 px-5 py-10 md:px-10 md:py-20 lg:px-20 lg:py-30',
         className,
       )}
     >
       {children}
-    </main>
+    </div>
   );
 }
