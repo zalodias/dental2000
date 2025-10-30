@@ -3,6 +3,7 @@
 import { Button } from '@/components/button';
 import { navigation } from '@/data/navigation';
 import useScrollDirection from '@/hooks/useScrollDirection';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -26,7 +27,11 @@ export function Navigation() {
           href="/"
           className="text-title-small font-semibold tracking-tight"
         >
-          Dental 2000
+          <Image
+            src={require('@/assets/logos/lockup-dark-horizontal.svg')}
+            alt="Dental 2000"
+            className="w-40"
+          />
         </Link>
         <div className="flex items-center gap-10">
           <div className="hidden md:flex md:gap-10">
