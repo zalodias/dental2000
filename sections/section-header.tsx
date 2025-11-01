@@ -1,9 +1,11 @@
+import { mergeTailwindClassNames as cn } from '@/utils/tailwind';
+
 interface SectionHeaderProps {
   eyebrow?: string;
   title: string;
   subtitle?: string;
   action?: React.ReactNode;
-  alignment?: 'start' | 'center';
+  className?: string;
 }
 
 export function SectionHeader({
@@ -11,29 +13,17 @@ export function SectionHeader({
   title,
   subtitle,
   action,
-  alignment = 'start',
+  className,
 }: SectionHeaderProps) {
   return (
-    <div
-      className={`flex max-w-[80ch] flex-col gap-10 ${
-        alignment === 'center' && 'items-center text-center'
-      }`}
-    >
-      <div
-        className={`flex flex-col gap-5 ${
-          alignment === 'center' && 'items-center text-center'
-        }`}
-      >
+    <div className={cn('flex max-w-[80ch] flex-col gap-10', className)}>
+      <div className={`flex flex-col gap-5`}>
         {eyebrow && (
           <h3 className="text-body-medium font-medium tracking-widest uppercase">
             {eyebrow}
           </h3>
         )}
-        <div
-          className={`flex flex-col gap-5 ${
-            alignment === 'center' && 'items-center text-center'
-          }`}
-        >
+        <div className={`flex flex-col gap-5`}>
           <h2 className="text-display-medium font-medium text-balance">
             {title}
           </h2>
