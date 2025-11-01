@@ -1,5 +1,6 @@
 import { Facebook } from '@/assets/icons/facebook';
 import { Instagram } from '@/assets/icons/instagram';
+import Logo from '@/assets/logos/lockup-dark-horizontal.svg';
 import { Container } from '@/components/container';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,6 +11,7 @@ export function Footer() {
       <Container>
         <div className="grid w-full grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-20">
           <div className="flex flex-col gap-7">
+            <Image src={Logo} alt="Dental 2000" className="w-50" />
             <p className="text-title-large font-medium text-balance">
               O seu sorriso, a nossa prioridade
             </p>
