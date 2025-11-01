@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 export function Footer() {
   return (
-    <footer className="bg-background-neutral-faded">
+    <footer>
       <Container>
         <div className="grid w-full grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-20">
           <div className="flex flex-col gap-7">

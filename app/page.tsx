@@ -3,13 +3,13 @@ import { Container } from '@/components/container';
 import { Footer } from '@/components/footer';
 import { Input } from '@/components/input';
 import { Select } from '@/components/select';
+import { Textarea } from '@/components/textarea';
 import { services } from '@/data/services';
 import { treatments } from '@/data/treatments';
 import { AccordionImage } from '@/sections/accordion-image';
 import { CarouselSlider } from '@/sections/carousel-slider';
 import { SectionHeader } from '@/sections/section-header';
 import { SocialProof } from '@/sections/social-proof';
-import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Home() {
@@ -50,6 +50,46 @@ export default function Home() {
       <AccordionImage items={services} />
       <CarouselSlider items={treatments} />
       <SocialProof />
+      <section className="bg-background-neutral-faded">
+        <div className="flex flex-col lg:flex-row lg:items-center">
+          <div className="bg-background-neutral-subtle relative aspect-3/2 w-full object-cover lg:aspect-2/3" />
+          <Container className="flex w-full flex-col gap-5">
+            <SectionHeader eyebrow="Marcações" title="Agende a sua consulta" />
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-5">
+              <Input type="text" placeholder="Nome" />
+              <Input type="tel" placeholder="Telefone" />
+              <Input type="email" placeholder="Email" />
+              <Select defaultValue="">
+                <option value="" disabled>
+                  Especialidade
+                </option>
+                <option value="alinhadores">Alinhadores</option>
+                <option value="ortodontia">Ortodontia</option>
+                <option value="implantologia">Implantologia</option>
+              </Select>
+              <Select defaultValue="">
+                <option value="" disabled>
+                  Clínica
+                </option>
+                <option value="coimbra">Coimbra</option>
+                <option value="sertã">Sertã</option>
+              </Select>
+            </div>
+            <Textarea placeholder="Motivo da consulta" />
+            <div className="flex gap-2">
+              <Input type="checkbox" id="conditions" />
+              <label
+                htmlFor="conditions"
+                className="text-body-medium text-foreground-neutral-subtle"
+              >
+                Li e aceito as condições de tratamento dos meus dados pessoais
+                pela Dental 2000.
+              </label>
+            </div>
+            <Button>Pedir contacto</Button>
+          </Container>
+        </div>
+      </section>
       <Footer />
     </>
   );
