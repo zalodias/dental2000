@@ -1,6 +1,16 @@
-import Logo from '@/assets/logos/lockup-primary-vertical.svg';
+import { Button } from '@/components/button';
 import { Container } from '@/components/container';
+import { Footer } from '@/components/footer';
+import { Input } from '@/components/input';
+import { Select } from '@/components/select';
+import { services } from '@/data/services';
+import { treatments } from '@/data/treatments';
+import { AccordionImage } from '@/sections/accordion-image';
+import { CarouselSlider } from '@/sections/carousel-slider';
+import { SectionHeader } from '@/sections/section-header';
+import { SocialProof } from '@/sections/social-proof';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Home() {
   return (
