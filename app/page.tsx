@@ -20,6 +20,23 @@ export default function Home() {
           </Button>
         </Container>
       </section>
+      <section>
+        <Container>
+          <div className="flex flex-col gap-10 md:flex-row md:items-center md:gap-20">
+            <SectionHeader
+              eyebrow="Sobre Nós"
+              title="O seu sorriso em boas mãos"
+              subtitle="Na Dental 2000, temos uma equipa de profissionais altamente qualificados e dedicados ao seu bem-estar. Acreditamos que um sorriso saudável é fundamental para a sua qualidade de vida, e estamos aqui para ajudar a alcançá-lo."
+              action={
+                <Button>
+                  <Link href="#">Conheça a nossa equipa</Link>
+                </Button>
+              }
+            />
+            <div className="bg-background-neutral-subtle relative aspect-2/3 w-full object-cover" />
+          </div>
+        </Container>
+      </section>
     </>
   );
 }
