@@ -49,6 +49,7 @@ export default function Home() {
       </section>
       <AccordionImage items={services} />
       <CarouselSlider items={treatments} />
+      <SocialProof />
       <Footer />
     </>
   );
