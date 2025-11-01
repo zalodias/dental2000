@@ -1,34 +1,46 @@
 import { mergeTailwindClassNames as cn } from '@/utils/tailwind';
-import Link from 'next/link';
+import { Slot } from '@radix-ui/react-slot';
+import { cva, type VariantProps } from 'class-variance-authority';
 
-interface ButtonProps {
-  children: React.ReactNode;
-  href?: string;
-  className?: string;
-}
+const button = cva(
+  'inline-flex w-fit cursor-pointer items-center justify-center rounded-full font-medium whitespace-nowrap',
+  {
+    variants: {
+      variant: {
+        default:
+          'bg-background-neutral-inverse text-foreground-neutral-inverse',
+        inverse:
+          'bg-background-neutral-default text-foreground-neutral-default',
+      },
+      size: {
+        default: 'px-5 py-2',
+        large: 'px-6 py-3',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+      size: 'default',
+    },
+  },
+);
 
-export function Button({ children, href, className }: ButtonProps) {
-  if (href) {
-    return (
-      <Link
-        href={href}
-        className={cn(
-          'bg-background-neutral-inverse text-foreground-neutral-inverse inline-flex w-fit cursor-pointer items-center justify-center rounded-full px-4 py-2 font-medium whitespace-nowrap',
-          className,
-        )}
-      >
-        {children}
-      </Link>
-    );
-  }
+export function Button({
+  className,
+  variant,
+  size,
+  asChild = false,
+  ...props
+}: React.ComponentProps<'button'> &
+  VariantProps<typeof button> & {
+    asChild?: boolean;
+  }) {
+  const Component = asChild ? Slot : 'button';
+
   return (
-    <button
-      className={cn(
-        'bg-background-neutral-inverse text-foreground-neutral-inverse inline-flex w-fit cursor-pointer items-center justify-center rounded-full px-4 py-2 font-medium whitespace-nowrap',
-        className,
-      )}
-    >
-      {children}
-    </button>
+    <Component
+      data-slot="button"
+      className={cn(button({ variant, size, className }))}
+      {...props}
+    />
   );
 }
