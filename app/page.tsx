@@ -37,7 +37,8 @@ export default function Home() {
           </div>
         </Container>
       </section>
-      <AccordionImage items={treatments} />
+      <AccordionImage items={services} />
+      <CarouselSlider items={treatments} />
     </>
   );
 }
