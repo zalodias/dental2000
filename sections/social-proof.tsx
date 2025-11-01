@@ -6,15 +6,15 @@ import { SectionHeader } from './section-header';
 export function SocialProof() {
   return (
     <section>
-      <Container>
+      <Container className="items-start md:items-center">
         <SectionHeader
           eyebrow="Experiências de pacientes"
           title="Sorrisos em boas mãos"
           className="text-start md:text-center"
         />
-        <div className="grid gap-8 md:grid-cols-2 md:gap-5">
+        <div className="grid items-center gap-8 md:grid-cols-2 md:gap-5">
           <ComparisonSlider />
-          <div className="relative flex h-full flex-col justify-between rounded-3xl p-6 md:p-10">
+          <div className="relative flex flex-col md:p-10">
             <div className="flex flex-col gap-6">
               <h3 className="text-display-small font-medium">
                 Hoje, sorrio com confiança e sem receios
@@ -33,8 +33,8 @@ export function SocialProof() {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-8 text-center md:grid-cols-4 md:gap-12">
-          <Metric label="pacientes atendidos" value="10000+" />
+        <div className="grid w-full grid-cols-2 gap-8 md:grid-cols-4 md:gap-12">
+          <Metric label="pacientes atendidos" value="1000+" />
           <Metric label="anos a cuidar de si" value="20+" />
           <Metric label="satisfação de resultados" value="98%" />
           <Metric label="médicos qualificados" value="10+" />
