@@ -1,19 +1,17 @@
 import { ComparisonSlider } from '@/components/comparison-slider';
 import { Container } from '@/components/container';
 import { Metric } from '@/components/metric';
+import { SectionHeader } from './section-header';
 
 export function SocialProof() {
   return (
     <section>
       <Container>
-        <div className="flex flex-col items-center gap-4">
-          <h3 className="text-body-medium font-medium tracking-widest uppercase">
-            Experiências de pacientes
-          </h3>
-          <h2 className="text-display-medium md:text-display-large text-center font-medium">
-            Sorrisos em boas mãos
-          </h2>
-        </div>
+        <SectionHeader
+          eyebrow="Experiências de pacientes"
+          title="Sorrisos em boas mãos"
+          className="text-start md:text-center"
+        />
         <div className="grid gap-8 md:grid-cols-2 md:gap-5">
           <ComparisonSlider />
           <div className="relative flex h-full flex-col justify-between rounded-3xl p-6 md:p-10">
