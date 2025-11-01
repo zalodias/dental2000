@@ -8,14 +8,9 @@ export function Footer() {
   return (
     <footer className="bg-background-neutral-faded">
       <Container>
-        <div className="flex w-full flex-col gap-12 lg:flex-row lg:items-start lg:gap-20">
+        <div className="grid w-full grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-20">
           <div className="flex flex-col gap-7">
-            <Image
-              src={require('@/assets/logos/lockup-dark-horizontal.svg')}
-              alt="Dental 2000"
-              className="w-50"
-            />
-            <p className="text-title-medium font-medium">
+            <p className="text-title-large font-medium text-balance">
               O seu sorriso, a nossa prioridade
             </p>
             <div className="flex gap-3">
@@ -33,35 +28,35 @@ export function Footer() {
               </a>
             </div>
           </div>
-          <div className="text-body-large-default flex flex-col gap-4">
-            <h4 className="text-title-medium font-medium">Coimbra</h4>
-            <div className="flex flex-col gap-1">
-              <span>R. João de Ruão 5, 3000-153 Coimbra</span>
-              <span>(+351) 922 124 622</span>
+          <div className="grid w-full grid-cols-1 gap-10 md:grid-cols-2 lg:gap-20">
+            <div className="text-body-large-default flex flex-col gap-4">
+              <h4 className="text-title-medium font-medium">Coimbra</h4>
+              <div className="flex flex-col gap-1">
+                <span>R. João de Ruão 5, 3000-153 Coimbra</span>
+                <span>(+351) 922 124 622</span>
+              </div>
             </div>
-          </div>
-          <div className="text-body-large-default flex flex-col gap-4">
-            <h4 className="text-title-medium font-medium">Sertã</h4>
-            <div className="flex flex-col gap-1">
-              <span>Rua Vila de Rei, Nº66 R/Ch, 6100-707 Sertã</span>
-              <span>(+351) 922 133 517</span>
+            <div className="text-body-large-default flex flex-col gap-4">
+              <h4 className="text-title-medium font-medium">Sertã</h4>
+              <div className="flex flex-col gap-1">
+                <span>Rua Vila de Rei, Nº66 R/Ch, 6100-707 Sertã</span>
+                <span>(+351) 922 133 517</span>
+              </div>
             </div>
           </div>
         </div>
+        <div className="border-border-neutral-default flex flex-wrap gap-3 border-t pt-5">
+          <div className="flex grow gap-4">
+            <Link href="#">Livro de Reclamações</Link>
+          </div>
+          <span>
+            © {new Date().getFullYear()} Dental 2000 ・ Made with 🦷 by{' '}
+            <a href="https://www.zalodias.com" target="_blank">
+              Gonçalo Dias
+            </a>
+          </span>
+        </div>
       </Container>
-      <div className="bg-background-neutral-faded text-body-small">
-        <Container className="flex flex-col gap-2 !py-4 md:flex-row md:items-center md:justify-between">
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link href="#" className="hover:underline">
-              Livro de Reclamações
-            </Link>
-          </div>
-          <div className="text-center md:text-right">
-            © {new Date().getFullYear()} Dental 2000 ・ Made with 🦷 by Gonçalo
-            Dias
-          </div>
-        </Container>
-      </div>
     </footer>
   );
 }
