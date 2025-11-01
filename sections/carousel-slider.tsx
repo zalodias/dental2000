@@ -11,8 +11,6 @@ export interface CarouselItem {
 }
 
 interface CarouselSliderProps {
-  title: string;
-  titleHighlight?: string;
   items: CarouselItem[];
   className?: string;
 }
