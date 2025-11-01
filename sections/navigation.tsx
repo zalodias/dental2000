@@ -1,5 +1,6 @@
 'use client';
 
+import Logo from '@/assets/logos/lockup-dark-horizontal.svg';
 import { Button } from '@/components/button';
 import { navigation } from '@/data/navigation';
 import useScrollDirection from '@/hooks/useScrollDirection';
@@ -27,11 +28,7 @@ export function Navigation() {
           href="/"
           className="text-title-small font-semibold tracking-tight"
         >
-          <Image
-            src={require('@/assets/logos/lockup-dark-horizontal.svg')}
-            alt="Dental 2000"
-            className="w-40"
-          />
+          <Image src={Logo} alt="Dental 2000" className="w-40" />
         </Link>
         <div className="flex items-center gap-10">
           <div className="hidden md:flex md:gap-10">
