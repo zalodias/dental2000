@@ -40,7 +40,7 @@ export function Navigation() {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-foreground-neutral-subtle hover:text-foreground-neutral-default relative px-3 py-1 font-medium whitespace-nowrap after:absolute after:-bottom-1 after:left-1/2 after:h-0.5 after:w-1/3 after:origin-center after:-translate-x-1/2 after:bg-current after:opacity-0 after:transition-all after:duration-320 after:content-[''] hover:after:w-2/3 hover:after:opacity-100"
+                    className="text-foreground-neutral-subtle hover:text-foreground-neutral-default px-3 py-1 font-medium whitespace-nowrap"
                   >
                     {item.name}
                   </Link>
