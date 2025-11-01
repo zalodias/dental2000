@@ -47,7 +47,9 @@ export function Navigation() {
                 </li>
               ))}
             </ul>
-            <Button href="/marcar-consulta">Marcar consulta</Button>
+            <Button>
+              <Link href="#">Marcar consulta</Link>
+            </Button>
           </div>
           <button
             onClick={toggleMenu}
