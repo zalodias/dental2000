@@ -32,15 +32,15 @@
 
   --text-*: initial;
   --text-body-small: 12px;
-  --text-body-small--line-height: 16px;
+  --text-body-small--line-height: 18px;
   --text-body-medium: 14px;
-  --text-body-medium--line-height: 20px;
+  --text-body-medium--line-height: 22px;
   --text-body-large: 16px;
-  --text-body-large--line-height: 24px;
+  --text-body-large--line-height: 26px;
   --text-title-small: 18px;
-  --text-title-small--line-height: 26px;
+  --text-title-small--line-height: 28px;
   --text-title-medium: 20px;
-  --text-title-medium--line-height: 28px;
+  --text-title-medium--line-height: 30px;
   --text-title-large: 24px;
   --text-title-large--line-height: 32px;
   --text-display-small: 32px;
