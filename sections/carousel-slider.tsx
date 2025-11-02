@@ -12,7 +12,6 @@ export interface CarouselItem {
 
 interface CarouselSliderProps {
   items: CarouselItem[];
-  className?: string;
 }
 
 export function CarouselSlider({ items }: CarouselSliderProps) {
