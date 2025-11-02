@@ -18,13 +18,13 @@ export function Footer() {
             </p>
             <div className="flex gap-3">
               <a
-                href="#"
+                href="https://instagram.com/dental2000_clinica/"
                 className="bg-background-neutral-default/40 border-foreground-neutral-inverse/40 hover:bg-background-neutral-default/80 inline-flex items-center rounded-lg border p-2 transition-colors duration-200"
               >
                 <Instagram size={20} />
               </a>
               <a
-                href="#"
+                href="https://facebook.com/profile?id=61574453800539"
                 className="bg-background-neutral-default/40 border-foreground-neutral-inverse/40 hover:bg-background-neutral-default/80 inline-flex items-center rounded-lg border p-2 transition-colors duration-200"
               >
                 <Facebook size={20} />
