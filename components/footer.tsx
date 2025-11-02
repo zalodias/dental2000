@@ -2,6 +2,7 @@ import { Facebook } from '@/assets/icons/facebook';
 import { Instagram } from '@/assets/icons/instagram';
 import Logo from '@/assets/logos/lockup-dark-horizontal.svg';
 import { Container } from '@/components/container';
+import { Mail } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -27,6 +28,12 @@ export function Footer() {
                 className="bg-background-neutral-default/40 border-foreground-neutral-inverse/40 hover:bg-background-neutral-default/80 inline-flex items-center rounded-lg border p-2 transition-colors duration-200"
               >
                 <Facebook size={20} />
+              </a>
+              <a
+                href="mailto:dentallda@gmail.com"
+                className="bg-background-neutral-default/40 border-foreground-neutral-inverse/40 hover:bg-background-neutral-default/80 inline-flex items-center rounded-lg border p-2 transition-colors duration-200"
+              >
+                <Mail size={20} />
               </a>
             </div>
           </div>
