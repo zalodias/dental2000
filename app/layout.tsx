@@ -1,4 +1,5 @@
 import '@/app/globals.css';
+import { Footer } from '@/components/footer';
 import { Navigation } from '@/sections/navigation';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
@@ -30,6 +31,7 @@ export default function RootLayout({
       >
         <Navigation />
         {children}
+        <Footer />
       </body>
     </html>
   );
