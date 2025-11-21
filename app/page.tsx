@@ -1,6 +1,5 @@
 import { Button } from '@/components/button';
 import { Container } from '@/components/container';
-import { Footer } from '@/components/footer';
 import { Input } from '@/components/input';
 import { Select } from '@/components/select';
 import { Textarea } from '@/components/textarea';
