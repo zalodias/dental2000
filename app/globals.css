@@ -53,3 +53,19 @@
   --text-display-large--line-height: 56px;
   --text-display-large--letter-spacing: -0.03em;
 }
+
+@layer animation {
+  .animate-ticker {
+    animation: ticker var(--ticker-duration) linear infinite;
+  }
+
+  @keyframes ticker {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+}
