@@ -18,6 +18,31 @@ profissionais altamente qualificados, comprometidos em proporcionar um atendimen
         />
       </Container>
       <Container>
+        <SectionHeader title="Direção Clínica" />
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-x-5 gap-y-10">
+          {team.map((member) => (
+            <ProfileCard
+              key={member.name}
+              name={member.name}
+              title={member.title}
+            />
+          ))}
+        </div>
+      </Container>
+      <Container>
+        <SectionHeader title="Medicina Dentária" />
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-x-5 gap-y-10">
+          {team.map((member) => (
+            <ProfileCard
+              key={member.name}
+              name={member.name}
+              title={member.title}
+            />
+          ))}
+        </div>
+      </Container>
+      <Container>
+        <SectionHeader title="Gestão de Pacientes" />
         <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-x-5 gap-y-10">
           {team.map((member) => (
             <ProfileCard
