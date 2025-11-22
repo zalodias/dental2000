@@ -6,13 +6,15 @@ import { SectionHeader } from '@/sections/section-header';
 export default function Equipa() {
   return (
     <>
-      <Container className="flex items-center lg:flex-row">
-        <div className="bg-background-neutral-subtle relative -mx-5 aspect-4/3 w-screen object-cover md:mx-0 md:w-full" />
+      <Container className="flex items-center md:pt-30 lg:pt-40">
+        <div className="bg-background-neutral-subtle relative -mx-5 aspect-4/3 w-screen object-cover md:order-1 md:mx-0 md:aspect-3/2 md:w-full" />
         <SectionHeader
           eyebrow="A nossa equipa"
           title="Profissionais dedicados ao seu bem-estar"
+          size="large"
           subtitle="Na Dental 2000, a nossa equipa é composta por
 profissionais altamente qualificados, comprometidos em proporcionar um atendimento de excelência e em constante atualização nas suas áreas de especialização."
+          className="md:text-center"
         />
       </Container>
       <Container>
