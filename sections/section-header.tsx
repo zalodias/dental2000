@@ -1,10 +1,24 @@
 import { mergeTailwindClassNames as cn } from '@/utils/tailwind';
+import { cva, type VariantProps } from 'class-variance-authority';
+
+const sectionHeader = cva('font-medium text-balance', {
+  variants: {
+    size: {
+      medium: 'text-display-small md:text-display-medium',
+      large: 'text-display-medium md:text-display-large',
+    },
+  },
+  defaultVariants: {
+    size: 'medium',
+  },
+});
 
 interface SectionHeaderProps {
   eyebrow?: string;
   title: string;
   subtitle?: string;
   action?: React.ReactNode;
+  size?: VariantProps<typeof sectionHeader>['size'];
   className?: string;
 }
 
@@ -13,6 +27,7 @@ export function SectionHeader({
   title,
   subtitle,
   action,
+  size,
   className,
 }: SectionHeaderProps) {
   return (
@@ -24,9 +39,7 @@ export function SectionHeader({
           </h3>
         )}
         <div className={`flex flex-col gap-5`}>
-          <h2 className="text-display-medium font-medium text-balance">
-            {title}
-          </h2>
+          <h2 className={sectionHeader({ size })}>{title}</h2>
           {subtitle && (
             <p className="text-foreground-neutral-subtle text-title-small">
               {subtitle}
