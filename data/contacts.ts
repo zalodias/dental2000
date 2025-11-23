@@ -13,6 +13,6 @@ export const contacts: Contact[] = [
   {
     name: 'Sertã',
     phone: '(+351) 922 133 517',
-    address: 'Rua Vila de Rei, Nº66 R/Ch, 6100-707 Sertã',
+    address: 'Rua Vila de Rei 66 R/Ch, 6100-707 Sertã',
   },
 ];
