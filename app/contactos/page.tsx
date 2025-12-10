@@ -1,7 +1,11 @@
 'use client';
 
+import { Button } from '@/components/button';
 import { Container } from '@/components/container';
+import { Input } from '@/components/input';
+import { Select } from '@/components/select';
 import { Tabs } from '@/components/tabs';
+import { Textarea } from '@/components/textarea';
 import { contacts } from '@/data/contacts';
 import { SectionHeader } from '@/sections/section-header';
 
@@ -46,6 +50,41 @@ export default function Contactos() {
             ))}
           </Tabs>
         </div>
+      </Container>
+      <Container className="flex w-full flex-col gap-5">
+        <SectionHeader eyebrow="Marcações" title="Agende a sua consulta" />
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-5">
+          <Input type="text" placeholder="Nome" />
+          <Input type="tel" placeholder="Telefone" />
+          <Input type="email" placeholder="Email" />
+          <Select defaultValue="">
+            <option value="" disabled>
+              Especialidade
+            </option>
+            <option value="alinhadores">Alinhadores</option>
+            <option value="ortodontia">Ortodontia</option>
+            <option value="implantologia">Implantologia</option>
+          </Select>
+          <Select defaultValue="">
+            <option value="" disabled>
+              Clínica
+            </option>
+            <option value="coimbra">Coimbra</option>
+            <option value="sertã">Sertã</option>
+          </Select>
+        </div>
+        <Textarea placeholder="Motivo da consulta" />
+        <div className="flex gap-2">
+          <Input type="checkbox" id="conditions" />
+          <label
+            htmlFor="conditions"
+            className="text-body-medium text-foreground-neutral-subtle"
+          >
+            Li e aceito as condições de tratamento dos meus dados pessoais pela
+            Dental 2000.
+          </label>
+        </div>
+        <Button>Pedir contacto</Button>
       </Container>
     </>
   );
