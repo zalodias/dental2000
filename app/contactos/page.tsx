@@ -1,5 +1,7 @@
 'use client';
 
+import { Facebook } from '@/assets/icons/facebook';
+import { Instagram } from '@/assets/icons/instagram';
 import { Button } from '@/components/button';
 import { Container } from '@/components/container';
 import { Input } from '@/components/input';
@@ -9,6 +11,7 @@ import { Textarea } from '@/components/textarea';
 import { contacts } from '@/data/contacts';
 import { questions } from '@/data/questions';
 import { SectionHeader } from '@/sections/section-header';
+import { Ticker } from '@/sections/ticker';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 
@@ -156,6 +159,53 @@ export default function Contactos() {
             })}
           </div>
         </div>
+      </Container>
+      <Container className="flex w-full flex-col gap-10">
+        <SectionHeader
+          eyebrow="Redes Sociais"
+          title="Acompanhe-nos nas redes sociais"
+          className="text-start md:mx-auto md:text-center"
+        />
+        <div className="flex flex-col gap-6 md:flex-row md:justify-center md:gap-8">
+          <a
+            href="https://facebook.com/profile?id=61574453800539"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="md:hover:bg-background-neutral-faded flex items-center gap-4 rounded-xl bg-transparent px-0 py-4 transition-colors duration-200 md:px-4"
+          >
+            <div className="bg-background-neutral-inverse/6 text-foreground-neutral-default flex size-12 items-center justify-center rounded-full">
+              <Facebook size={24} />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-title-medium font-medium">Facebook</span>
+              <span className="text-body-medium text-foreground-neutral-subtle">
+                @dental2000_clinica
+              </span>
+            </div>
+          </a>
+          <a
+            href="https://instagram.com/dental2000_clinica/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="md:hover:bg-background-neutral-faded flex items-center gap-4 rounded-xl bg-transparent px-0 py-4 transition-colors duration-200 md:px-4"
+          >
+            <div className="bg-background-neutral-inverse/6 text-foreground-neutral-default flex h-12 w-12 shrink-0 items-center justify-center rounded-full">
+              <Instagram size={24} />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-title-medium font-medium">Instagram</span>
+              <span className="text-body-medium text-foreground-neutral-subtle">
+                @dental2000_clinica
+              </span>
+            </div>
+          </a>
+        </div>
+        <Ticker
+          items={Array.from({ length: 8 }, (_, i) => (
+            <div key={i} className="bg-background-neutral-subtle size-full" />
+          ))}
+          duration={30}
+        />
       </Container>
     </>
   );
