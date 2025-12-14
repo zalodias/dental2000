@@ -1,9 +1,20 @@
 import { Container } from '@/components/container';
 import { ProfileCard } from '@/components/profile-card';
-import { team } from '@/data/team';
+import { equipa } from '@/data/metadata';
 import { SectionHeader } from '@/sections/section-header';
+import { fetchDatabaseContent } from '@/utils/notion';
+import type { Metadata } from 'next';
 
-export default function Equipa() {
+export const metadata: Metadata = {
+  title: equipa.title,
+  description: equipa.description,
+};
+
+export default async function Equipa() {
+  const team = await fetchDatabaseContent(
+    process.env.NOTION_EQUIPA_DATABASE_ID!,
+  );
+
   return (
     <>
       <Container className="flex items-center md:pt-30 lg:pt-40">
@@ -22,9 +33,9 @@ profissionais altamente qualificados, comprometidos em proporcionar um atendimen
         <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-x-5 gap-y-10">
           {team.map((member) => (
             <ProfileCard
-              key={member.name}
-              name={member.name}
-              title={member.title}
+              key={member.id}
+              name={(member.properties.Nome as any).title[0].plain_text}
+              title={(member.properties.Função as any).rich_text[0].plain_text}
             />
           ))}
         </div>
@@ -34,9 +45,9 @@ profissionais altamente qualificados, comprometidos em proporcionar um atendimen
         <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-x-5 gap-y-10">
           {team.map((member) => (
             <ProfileCard
-              key={member.name}
-              name={member.name}
-              title={member.title}
+              key={member.id}
+              name={(member.properties.Nome as any).title[0].plain_text}
+              title={(member.properties.Função as any).rich_text[0].plain_text}
             />
           ))}
         </div>
@@ -46,9 +57,9 @@ profissionais altamente qualificados, comprometidos em proporcionar um atendimen
         <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-x-5 gap-y-10">
           {team.map((member) => (
             <ProfileCard
-              key={member.name}
-              name={member.name}
-              title={member.title}
+              key={member.id}
+              name={(member.properties.Nome as any).title[0].plain_text}
+              title={(member.properties.Função as any).rich_text[0].plain_text}
             />
           ))}
         </div>
