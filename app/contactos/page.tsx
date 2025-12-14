@@ -6,21 +6,17 @@ import { Button } from '@/components/button';
 import { Container } from '@/components/container';
 import { Input } from '@/components/input';
 import { Select } from '@/components/select';
-import { Tabs } from '@/components/tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/tabs';
 import { Textarea } from '@/components/textarea';
-import { contacts } from '@/data/contacts';
 import { questions } from '@/data/questions';
 import { SectionHeader } from '@/sections/section-header';
 import { Ticker } from '@/sections/ticker';
-import { Plus } from 'lucide-react';
-import { useState } from 'react';
+import { fetchDatabaseContent } from '@/utils/notion';
 
-export default function Contactos() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-  function handleToggle(index: number) {
-    setOpenIndex((prev) => (prev === index ? null : index));
-  }
+export default async function Contactos() {
+  const contactos = await fetchDatabaseContent(
+    process.env.NOTION_CONTACTOS_DATABASE_ID!,
+  );
 
   return (
     <>
@@ -33,32 +29,37 @@ export default function Contactos() {
             size="large"
             className="text-center"
           />
-          <Tabs value={contacts[0].name} className="w-full">
-            <Tabs.List className="mx-auto max-w-(--breakpoint-sm) justify-center">
-              {contacts.map((contact) => (
-                <Tabs.Trigger key={contact.name} value={contact.name}>
-                  {contact.name}
-                </Tabs.Trigger>
+          <Tabs value={contactos[0].id} className="w-full">
+            <TabsList className="mx-auto max-w-(--breakpoint-sm) justify-center">
+              {contactos?.map((contact) => (
+                <TabsTrigger key={contact.id} value={contact.id}>
+                  {(contact.properties.Clínica as any).title[0].plain_text}
+                </TabsTrigger>
               ))}
-            </Tabs.List>
-            {contacts.map((contact) => (
-              <Tabs.Content key={contact.name} value={contact.name}>
+            </TabsList>
+            {contactos.map((contact) => (
+              <TabsContent key={contact.id} value={contact.id}>
                 <div className="flex flex-col justify-center gap-8 text-center md:flex-row md:gap-16">
                   <div className="flex flex-col gap-1">
                     <p className="text-foreground-neutral-subtle text-body-medium">
-                      Telemóvel
+                      Telefone
                     </p>
-                    <p>{contact.phone}</p>
+                    <p>{(contact.properties.Telefone as any).phone_number}</p>
                   </div>
                   <div className="flex flex-col gap-1">
                     <p className="text-foreground-neutral-subtle text-body-medium">
                       Morada
                     </p>
-                    <p>{contact.address}</p>
+                    <p>
+                      {
+                        (contact.properties.Morada as any).rich_text[0]
+                          .plain_text
+                      }
+                    </p>
                   </div>
                 </div>
                 <div className="bg-background-neutral-subtle relative aspect-3/2 w-full object-cover" />
-              </Tabs.Content>
+              </TabsContent>
             ))}
           </Tabs>
         </div>

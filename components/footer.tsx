@@ -2,11 +2,16 @@ import { Facebook } from '@/assets/icons/facebook';
 import { Instagram } from '@/assets/icons/instagram';
 import Logo from '@/assets/logos/lockup-dark-horizontal.svg';
 import { Container } from '@/components/container';
+import { fetchDatabaseContent } from '@/utils/notion';
 import { Mail } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export function Footer() {
+export async function Footer() {
+  const contactos = await fetchDatabaseContent(
+    process.env.NOTION_CONTACTOS_DATABASE_ID!,
+  );
+
   return (
     <footer>
       <Container>
@@ -38,20 +43,27 @@ export function Footer() {
             </div>
           </div>
           <div className="grid w-full grid-cols-1 gap-10 md:grid-cols-2 lg:gap-20">
-            <div className="text-body-large-default flex flex-col gap-4">
-              <h4 className="text-title-medium font-medium">Coimbra</h4>
-              <div className="flex flex-col gap-1">
-                <span>R. João de Ruão 5, 3000-153 Coimbra</span>
-                <span>(+351) 922 124 622</span>
+            {contactos.map((contacto) => (
+              <div
+                key={contacto.id}
+                className="text-body-large-default flex flex-col gap-4"
+              >
+                <h4 className="text-title-medium font-medium">
+                  {(contacto.properties.Clínica as any).title[0].plain_text}
+                </h4>
+                <div className="flex flex-col gap-1">
+                  <span>
+                    {
+                      (contacto.properties.Morada as any).rich_text[0]
+                        .plain_text
+                    }
+                  </span>
+                  <span>
+                    {(contacto.properties.Telefone as any).phone_number}
+                  </span>
+                </div>
               </div>
-            </div>
-            <div className="text-body-large-default flex flex-col gap-4">
-              <h4 className="text-title-medium font-medium">Sertã</h4>
-              <div className="flex flex-col gap-1">
-                <span>Rua Vila de Rei, Nº66 R/Ch, 6100-707 Sertã</span>
-                <span>(+351) 922 133 517</span>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
         <div className="border-border-neutral-default flex flex-wrap gap-3 border-t pt-5">
