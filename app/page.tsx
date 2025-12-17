@@ -3,15 +3,19 @@ import { Container } from '@/components/container';
 import { Input } from '@/components/input';
 import { Select } from '@/components/select';
 import { Textarea } from '@/components/textarea';
-import { services } from '@/data/services';
-import { treatments } from '@/data/treatments';
 import { AccordionImage } from '@/sections/accordion-image';
 import { CarouselSlider } from '@/sections/carousel-slider';
 import { SectionHeader } from '@/sections/section-header';
 import { SocialProof } from '@/sections/social-proof';
+import { fetchDatabaseContent } from '@/utils/notion';
 import Link from 'next/link';
 
-export default function Home() {
+export default async function Home() {
+  const [specialities, treatments] = await Promise.all([
+    fetchDatabaseContent(process.env.NOTION_ESPECIALIDADES_DATABASE_ID!),
+    fetchDatabaseContent(process.env.NOTION_TRATAMENTOS_DATABASE_ID!),
+  ]);
+
   return (
     <>
       <section className="relative grid place-items-center">
@@ -42,8 +46,20 @@ export default function Home() {
           </div>
         </Container>
       </section>
-      <AccordionImage items={services} />
-      <CarouselSlider items={treatments} />
+      <AccordionImage
+        items={specialities.map((speciality) => ({
+          title: (speciality.properties.Nome as any).title[0].plain_text,
+          description: (speciality.properties.Descrição as any).rich_text[0]
+            .plain_text,
+        }))}
+      />
+      <CarouselSlider
+        items={treatments.map((treatment) => ({
+          title: (treatment.properties.Nome as any).title[0].plain_text,
+          description: (treatment.properties.Descrição as any).rich_text[0]
+            .plain_text,
+        }))}
+      />
       <SocialProof />
       <section className="bg-background-neutral-faded">
         <div className="flex flex-col lg:flex-row lg:items-center">
