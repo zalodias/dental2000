@@ -47,7 +47,7 @@ export function AccordionImage({ items }: AccordionImageProps) {
                 return (
                   <div
                     key={item.name}
-                    className="border-border-neutral-default border-b"
+                    className="border-border-neutral-default border-b last:border-b-0"
                   >
                     <button
                       onClick={() => handleToggle(index)}
