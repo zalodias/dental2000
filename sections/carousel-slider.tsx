@@ -64,10 +64,10 @@ export function CarouselSlider({ items }: CarouselSliderProps) {
           {items.map((item, index) => (
             <div
               key={index}
-              className="group relative w-[360px] flex-shrink-0 cursor-pointer snap-center"
+              className="group relative w-[360px] shrink-0 cursor-pointer snap-center"
             >
-              <div className="relative flex aspect-[3/4] w-full items-end overflow-hidden">
-                <div className="from-background-neutral-inverse/80 absolute bottom-0 z-10 h-1/2 w-full bg-gradient-to-t to-transparent" />
+              <div className="relative flex aspect-3/4 w-full items-end overflow-hidden">
+                <div className="from-background-neutral-inverse/80 absolute bottom-0 z-10 h-1/2 w-full bg-linear-to-t to-transparent" />
                 <div className="bg-background-neutral-subtle absolute inset-0 transition-transform duration-500 group-hover:scale-105" />
                 <h3 className="text-title-large text-foreground-neutral-inverse z-10 w-full p-6 font-medium">
                   {item.title}
