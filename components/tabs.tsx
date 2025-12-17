@@ -51,7 +51,6 @@ export function TabsList({ children, className }: TabsListProps) {
     </div>
   );
 }
-Tabs.List = TabsList;
 
 interface TabsTriggerProps {
   value: string;
@@ -79,7 +78,6 @@ export function TabsTrigger({ value, children, className }: TabsTriggerProps) {
     </button>
   );
 }
-Tabs.Trigger = TabsTrigger;
 
 interface TabsContentProps {
   value: string;
@@ -96,4 +94,3 @@ export function TabsContent({ value, children, className }: TabsContentProps) {
 
   return <div className={cn('flex flex-col gap-8', className)}>{children}</div>;
 }
-Tabs.Content = TabsContent;
