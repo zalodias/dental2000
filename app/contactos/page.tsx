@@ -1,7 +1,6 @@
-'use client';
-
 import { Facebook } from '@/assets/icons/facebook';
 import { Instagram } from '@/assets/icons/instagram';
+import { Accordion } from '@/components/accordion';
 import { Button } from '@/components/button';
 import { Container } from '@/components/container';
 import { Input } from '@/components/input';
@@ -106,59 +105,7 @@ export default async function Contactos() {
             title="Respostas às suas questões mais comuns"
             className="text-center"
           />
-          <div className="flex w-full max-w-3xl flex-col">
-            {questions.map((item, index) => {
-              const isOpen = openIndex === index;
-              return (
-                <div
-                  key={index}
-                  className="border-border-neutral-subtle border-b last:border-b-0"
-                >
-                  <button
-                    onClick={() => handleToggle(index)}
-                    className="hover:text-foreground-neutral-default flex w-full cursor-pointer items-center justify-between gap-4 py-6 text-start transition-colors duration-200"
-                    aria-expanded={isOpen}
-                    aria-controls={`question-${index}`}
-                  >
-                    <span
-                      className={`text-title-medium grow font-medium transition-colors duration-200 ${
-                        isOpen
-                          ? 'text-foreground-neutral-default'
-                          : 'text-foreground-neutral-subtle'
-                      }`}
-                    >
-                      {item.title}
-                    </span>
-                    <div
-                      className={`bg-background-neutral-faded flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-transform duration-200 ${
-                        isOpen ? 'rotate-45' : 'rotate-0'
-                      }`}
-                    >
-                      <Plus
-                        className={`text-foreground-neutral-default h-4 w-4 transition-transform duration-200 ${
-                          isOpen ? 'scale-105' : 'scale-100'
-                        }`}
-                      />
-                    </div>
-                  </button>
-                  <div
-                    id={`question-${index}`}
-                    className={`grid transition-all duration-400 ${
-                      isOpen
-                        ? 'grid-rows-[1fr] pb-6 opacity-100'
-                        : 'grid-rows-[0fr] pb-0 opacity-0'
-                    }`}
-                  >
-                    <div className="overflow-hidden">
-                      <div className="text-body-large text-foreground-neutral-subtle leading-relaxed">
-                        {item.answer}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          <Accordion items={questions} />
         </div>
       </Container>
       <Container className="flex w-full flex-col gap-10">
