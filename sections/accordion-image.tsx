@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { SectionHeader } from './section-header';
 
 export interface AccordionItem {
-  name: string;
+  title: string;
   description: string;
 }
 
@@ -34,7 +34,7 @@ export function AccordionImage({ items }: AccordionImageProps) {
             <div className="relative aspect-3/2 overflow-hidden md:aspect-2/3">
               {items.map((item, index) => (
                 <div
-                  key={item.name}
+                  key={item.title}
                   className={`bg-background-neutral-subtle absolute inset-0 transition-opacity duration-400 ${
                     openIndex === index ? 'opacity-100' : 'opacity-0'
                   }`}
@@ -46,7 +46,7 @@ export function AccordionImage({ items }: AccordionImageProps) {
                 const isOpen = openIndex === index;
                 return (
                   <div
-                    key={item.name}
+                    key={item.title}
                     className="border-border-neutral-default border-b last:border-b-0"
                   >
                     <button
@@ -62,7 +62,7 @@ export function AccordionImage({ items }: AccordionImageProps) {
                             : 'text-foreground-neutral-default/50'
                         }`}
                       >
-                        {item.name}
+                        {item.title}
                       </span>
                       <Plus
                         className={`h-6 w-6 shrink-0 transition-transform duration-200 ${
