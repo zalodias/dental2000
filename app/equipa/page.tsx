@@ -1,14 +1,7 @@
 import { Container } from '@/components/container';
 import { ProfileCard } from '@/components/profile-card';
-import { equipa } from '@/data/metadata';
 import { SectionHeader } from '@/sections/section-header';
 import { fetchDatabaseContent } from '@/utils/notion';
-import type { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: equipa.title,
-  description: equipa.description,
-};
 
 export default async function Equipa() {
   const team = await fetchDatabaseContent(
