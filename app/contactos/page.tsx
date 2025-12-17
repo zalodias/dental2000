@@ -13,7 +13,7 @@ import { Ticker } from '@/sections/ticker';
 import { fetchDatabaseContent } from '@/utils/notion';
 
 export default async function Contactos() {
-  const contactos = await fetchDatabaseContent(
+  const contacts = await fetchDatabaseContent(
     process.env.NOTION_CONTACTOS_DATABASE_ID!,
   );
 
@@ -28,15 +28,15 @@ export default async function Contactos() {
             size="large"
             className="text-center"
           />
-          <Tabs value={contactos[0].id} className="w-full">
+          <Tabs value={contacts[0].id} className="w-full">
             <TabsList className="mx-auto max-w-(--breakpoint-sm) justify-center">
-              {contactos?.map((contact) => (
+              {contacts?.map((contact) => (
                 <TabsTrigger key={contact.id} value={contact.id}>
                   {(contact.properties.Clínica as any).title[0].plain_text}
                 </TabsTrigger>
               ))}
             </TabsList>
-            {contactos.map((contact) => (
+            {contacts.map((contact) => (
               <TabsContent key={contact.id} value={contact.id}>
                 <div className="flex flex-col justify-center gap-8 text-center md:flex-row md:gap-16">
                   <div className="flex flex-col gap-1">
