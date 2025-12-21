@@ -9,9 +9,10 @@ import { fetchDatabaseContent } from '@/utils/notion';
 import Link from 'next/link';
 
 export default async function Clinica() {
-  const [team, values] = await Promise.all([
+  const [team, values, testimonials] = await Promise.all([
     fetchDatabaseContent(process.env.NOTION_EQUIPA_DATABASE_ID!),
     fetchDatabaseContent(process.env.NOTION_VALORES_DATABASE_ID!),
+    fetchDatabaseContent(process.env.NOTION_TESTEMUNHOS_DATABASE_ID!),
   ]);
 
   return (
@@ -110,32 +111,21 @@ export default async function Clinica() {
           title="O que dizem os nossos pacientes"
           subtitle="Histórias reais de transformações que mudaram sorrisos e vidas"
         />
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <TestimonialCard
-            quote="Depois de anos a adiar, finalmente tratei os meus dentes. A equipa é fantástica e os resultados superaram as minhas expectativas. Sinto-me outra pessoa."
-            author="João Costa"
-            subtitle="Branqueamento Dentário"
-          />
-          <TestimonialCard
-            quote="Sempre tive medo de dentistas, mas aqui fui tratada com tanta paciência e cuidado que já não tenho receio. Agradeço todo o acompanhamento."
-            author="Ana Martins"
-            subtitle="Tratamento Ortodôntico"
-          />
-          <TestimonialCard
-            quote="Profissionalismo exemplar. Desde a primeira consulta até ao fim, tudo foi explicado ao pormenor. Recomendo sem hesitar."
-            author="Pedro Santos"
-            subtitle="Implantes Dentários"
-          />
-          <TestimonialCard
-            quote="A minha experiência foi maravilhosa. Ambiente acolhedor, tecnologia de ponta e um resultado que transformou completamente o meu sorriso."
-            author="Rita Fernandes"
-            subtitle="Reabilitação Oral"
-          />
-          <TestimonialCard
-            quote="Fiquei impressionada com a atenção aos detalhes e o cuidado que tiveram comigo. O tratamento correu lindamente e sinto-me radiante."
-            author="Sofia Oliveira"
-            subtitle="Facetas Dentárias"
-          />
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {testimonials.map((testimonial) => (
+            <TestimonialCard
+              key={testimonial.id}
+              author={(testimonial.properties.Nome as any).title[0].plain_text}
+              quote={
+                (testimonial.properties.Testemunho as any).rich_text[0]
+                  .plain_text
+              }
+              subtitle={
+                (testimonial.properties.Tratamento as any).rich_text[0]
+                  .plain_text
+              }
+            />
+          ))}
           <div className="bg-background-neutral-subtle flex flex-col items-center justify-center gap-6 p-8 text-center">
             <div className="flex flex-col gap-4">
               <h3 className="text-title-large md:text-display-small font-medium">
