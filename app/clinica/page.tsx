@@ -9,9 +9,10 @@ import { fetchDatabaseContent } from '@/utils/notion';
 import Link from 'next/link';
 
 export default async function Clinica() {
-  const team = await fetchDatabaseContent(
-    process.env.NOTION_EQUIPA_DATABASE_ID!,
-  );
+  const [team, values] = await Promise.all([
+    fetchDatabaseContent(process.env.NOTION_EQUIPA_DATABASE_ID!),
+    fetchDatabaseContent(process.env.NOTION_VALORES_DATABASE_ID!),
+  ]);
 
   return (
     <>
@@ -55,44 +56,19 @@ export default async function Clinica() {
       <Container>
         <SectionHeader title="Desde o primeiro contacto até ao acompanhamento pós-tratamento, o nosso compromisso é simples" />
         <div className="grid grid-cols-[repeat(auto-fill,minmax(360px,1fr))] gap-20">
-          {[
-            {
-              number: '01',
-              title: 'Cuidado centrado no paciente',
-              description:
-                'Os nossos pacientes estão no centro de tudo o que fazemos. Ouvimos as suas preocupações, compreendemos as suas necessidades e criamos planos de tratamento personalizados que priorizam a sua saúde e conforto.',
-            },
-            {
-              number: '02',
-              title: 'Excelência em medicina dentária',
-              description:
-                'A nossa equipa utiliza a mais recente tecnologia e técnicas para garantir que recebe os tratamentos mais eficazes para resultados ótimos.',
-            },
-            {
-              number: '03',
-              title: 'Integridade e transparência',
-              description:
-                'Acreditamos na honestidade e transparência em todos os aspetos dos nossos cuidados. Explicamos claramente todas as opções de tratamento, custos e procedimentos para que possa tomar decisões informadas sobre a sua saúde oral.',
-            },
-            {
-              number: '04',
-              title: 'Tratamentos personalizados',
-              description:
-                'Cada tratamento é pensado de forma personalizada e responsável, garantindo resultados ótimos e uma relação de confiança com cada paciente.',
-            },
-          ].map((value, index) => (
+          {values.map((value, index) => (
             <div
-              key={index}
+              key={value.id}
               className="border-border-neutral-default flex flex-col gap-4 border-b pb-12"
             >
               <span className="text-foreground-neutral-faded font-medium uppercase">
-                {value.number}
+                {(index + 1).toString().padStart(2, '0')}
               </span>
               <h3 className="text-foreground-neutral-default text-title-large font-medium">
-                {value.title}
+                {(value.properties.Nome as any).title[0].plain_text}
               </h3>
               <p className="text-foreground-neutral-subtle text-title-small">
-                {value.description}
+                {(value.properties.Descrição as any).rich_text[0].plain_text}
               </p>
             </div>
           ))}
