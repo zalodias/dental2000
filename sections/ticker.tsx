@@ -15,7 +15,7 @@ export function Ticker({ items, duration = 20 }: TickerProps) {
   } as CSSProperties;
 
   return (
-    <section className="relative w-full">
+    <section className="relative w-screen overflow-hidden">
       <div className="relative py-10">
         <div
           className="animate-ticker flex w-fit gap-5"
@@ -24,7 +24,7 @@ export function Ticker({ items, duration = 20 }: TickerProps) {
           {ticker.map((item, index) => (
             <div
               key={index}
-              className="aspect-[3/4] w-[clamp(320px,20vw,400px)]"
+              className="aspect-3/4 w-[clamp(320px,20vw,400px)]"
               aria-hidden={index >= items.length}
             >
               {item}
