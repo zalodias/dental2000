@@ -22,7 +22,7 @@ export function Navigation() {
   return (
     <header>
       <nav
-        className={`fixed inset-x-0 top-0 z-20 flex items-center justify-between px-10 py-4 transition-all duration-400 ${
+        className={`fixed inset-x-0 top-0 z-20 flex items-center justify-between px-5 py-4 transition-all duration-400 md:px-10 lg:px-20 ${
           scrollDirection === 'down' ? '-translate-y-full' : 'translate-y-0'
         } ${isMenuOpen ? 'bg-background-neutral-default border-b border-transparent' : 'bg-background-neutral-default border-border-neutral-subtle border-b'}`}
       >
