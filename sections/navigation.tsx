@@ -6,10 +6,12 @@ import { navigation } from '@/data/navigation';
 import useScrollDirection from '@/hooks/useScrollDirection';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
 export function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   const scrollDirection = useScrollDirection();
 
@@ -30,6 +32,23 @@ export function Navigation() {
         <div className="flex items-center gap-10">
           <div className="hidden xl:flex xl:gap-10">
             <ul className="hidden items-center gap-3 xl:flex">
+              {navigation.map((item) => {
+                const isActive = pathname === item.href;
+                return (
+                  <li key={item.name}>
+                    <Link
+                      href={item.href}
+                      className={`hover:text-foreground-neutral-default px-3 py-1 font-medium whitespace-nowrap duration-200 ${
+                        isActive
+                          ? 'text-foreground-neutral-default'
+                          : 'text-foreground-neutral-subtle'
+                      }`}
+                    >
+                      {item.name}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
             <Button>
               <Link href="#">Marcar consulta</Link>
@@ -52,17 +71,25 @@ export function Navigation() {
         className={`bg-background-neutral-default fixed inset-0 z-10 flex h-screen flex-col items-start justify-start gap-10 px-5 py-8 pt-30 transition-opacity duration-400 md:px-10 lg:px-20 ${isMenuOpen ? 'opacity-100' : 'opacity-0'} xl:hidden`}
         inert={!isMenuOpen}
       >
-        <ul className="flex flex-col items-start gap-10 md:hidden">
-          {navigation.map((item) => (
-            <li key={item.name}>
-              <Link
-                href={item.href}
-                className="text-display-small tracking-tight whitespace-nowrap"
-              >
-                {item.name}
-              </Link>
-            </li>
-          ))}
+        <ul className="flex grow flex-col items-start gap-8">
+          {navigation.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <li key={item.name}>
+                <Link
+                  href={item.href}
+                  onClick={() => setIsMenuOpen(false)}
+                  className={`text-display-small font-medium whitespace-nowrap ${
+                    isActive
+                      ? 'text-foreground-neutral-default'
+                      : 'text-foreground-neutral-faded'
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </header>
