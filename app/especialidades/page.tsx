@@ -1,6 +1,6 @@
 import { Container } from '@/components/container';
+import { fetchDatabaseContent } from '@/notion/functions';
 import { SectionHeader } from '@/sections/section-header';
-import { fetchDatabaseContent } from '@/utils/notion';
 import { generateSlug } from '@/utils/utils';
 import Link from 'next/link';
 

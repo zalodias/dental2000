@@ -1,12 +1,8 @@
-import { Client } from '@notionhq/client';
+import { notion } from '@/notion/client';
 import type {
   BlockObjectResponse,
   PageObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints';
-
-export const notion = new Client({
-  auth: process.env.NOTION_API_KEY,
-});
 
 type SortConfig = {
   property?: string;

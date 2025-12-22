@@ -3,11 +3,11 @@ import { Container } from '@/components/container';
 import { Input } from '@/components/input';
 import { Select } from '@/components/select';
 import { Textarea } from '@/components/textarea';
+import { fetchDatabaseContent } from '@/notion/functions';
 import { AccordionImage } from '@/sections/accordion-image';
 import { CarouselSlider } from '@/sections/carousel-slider';
 import { SectionHeader } from '@/sections/section-header';
 import { SocialProof } from '@/sections/social-proof';
-import { fetchDatabaseContent } from '@/utils/notion';
 import Link from 'next/link';
 
 export default async function Home() {

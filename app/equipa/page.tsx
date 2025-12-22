@@ -1,7 +1,7 @@
 import { Container } from '@/components/container';
 import { ProfileCard } from '@/components/profile-card';
+import { fetchDatabaseContent } from '@/notion/functions';
 import { SectionHeader } from '@/sections/section-header';
-import { fetchDatabaseContent } from '@/utils/notion';
 
 export default async function Equipa() {
   const team = await fetchDatabaseContent(

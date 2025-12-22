@@ -8,9 +8,9 @@ import { Select } from '@/components/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/tabs';
 import { Textarea } from '@/components/textarea';
 import { questions } from '@/data/questions';
+import { fetchDatabaseContent } from '@/notion/functions';
 import { SectionHeader } from '@/sections/section-header';
 import { Ticker } from '@/sections/ticker';
-import { fetchDatabaseContent } from '@/utils/notion';
 
 export default async function Contactos() {
   const contacts = await fetchDatabaseContent(
