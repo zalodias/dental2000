@@ -1,4 +1,6 @@
 import { Container } from '@/components/container';
+import { renderBlocks } from '@/components/notion-block';
+import { processBlocks } from '@/notion/blocks';
 import {
   fetchBlockContent,
   fetchDatabaseContent,
@@ -39,19 +41,18 @@ export default async function Especialidade({
 }) {
   const { slug } = await params;
   const { page, id } = await getPageData(slug);
-  const blocks = await fetchBlockContent(id!);
+
+  const rawBlocks = await fetchBlockContent(id!);
+  const processedBlocks = processBlocks(rawBlocks);
+  const renderedBlocks = renderBlocks(processedBlocks);
 
   return (
     <>
       <Container>
-        <h1>{(page.properties.Nome as any).title[0].plain_text}</h1>
-        <div>
-          {blocks.map((block: any) => (
-            <div key={block.id}>
-              <div>{block.paragraph.rich_text[0].plain_text}</div>
-            </div>
-          ))}
-        </div>
+        <h1 className="text-display-medium text-foreground-neutral-default font-medium">
+          {(page.properties.Nome as any).title[0]?.plain_text || ''}
+        </h1>
+        <div>{renderedBlocks}</div>
       </Container>
     </>
   );
