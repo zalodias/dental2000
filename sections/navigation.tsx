@@ -1,9 +1,12 @@
 'use client';
 
+import { Facebook } from '@/assets/icons/facebook';
+import { Instagram } from '@/assets/icons/instagram';
 import Logo from '@/assets/logos/lockup-dark-horizontal.svg';
 import { Button } from '@/components/button';
 import { navigation } from '@/data/navigation';
 import useScrollDirection from '@/hooks/useScrollDirection';
+import { Mail } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -91,6 +94,38 @@ export function Navigation() {
             );
           })}
         </ul>
+        <hr className="border-border-neutral-default w-full" />
+        <div className="flex flex-col gap-6">
+          <div className="flex gap-6">
+            <a
+              href="https://facebook.com/profile?id=61574453800539"
+              target="_blank"
+              className="flex items-center gap-4 rounded-xl py-4"
+            >
+              <div className="bg-background-neutral-inverse/6 text-foreground-neutral-default flex size-12 items-center justify-center rounded-full">
+                <Facebook size={20} />
+              </div>
+            </a>
+            <a
+              href="https://instagram.com/dental2000_clinica/"
+              target="_blank"
+              className="flex items-center gap-4 rounded-xl py-4"
+            >
+              <div className="bg-background-neutral-inverse/6 text-foreground-neutral-default flex h-12 w-12 shrink-0 items-center justify-center rounded-full">
+                <Instagram size={20} />
+              </div>
+            </a>
+            <a
+              href="mailto:dentallda@gmail.com"
+              target="_blank"
+              className="flex items-center gap-4 rounded-xl py-4"
+            >
+              <div className="bg-background-neutral-inverse/6 text-foreground-neutral-default flex size-12 items-center justify-center rounded-full">
+                <Mail size={20} />
+              </div>
+            </a>
+          </div>
+        </div>
         <Button className="w-full" size="large">
           <Link href="/contactos" onClick={() => setIsMenuOpen(false)}>
             Marcar consulta
