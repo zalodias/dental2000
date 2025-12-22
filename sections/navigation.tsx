@@ -91,6 +91,11 @@ export function Navigation() {
             );
           })}
         </ul>
+        <Button className="w-full" size="large">
+          <Link href="/contactos" onClick={() => setIsMenuOpen(false)}>
+            Marcar consulta
+          </Link>
+        </Button>
       </div>
     </header>
   );
