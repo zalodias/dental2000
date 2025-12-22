@@ -3,7 +3,7 @@ import {
   fetchBlockContent,
   fetchDatabaseContent,
   fetchPageContent,
-} from '@/utils/notion';
+} from '@/notion/functions';
 import { generateSlug } from '@/utils/utils';
 
 export async function generateStaticParams() {

@@ -2,7 +2,7 @@ import { Facebook } from '@/assets/icons/facebook';
 import { Instagram } from '@/assets/icons/instagram';
 import Logo from '@/assets/logos/lockup-dark-horizontal.svg';
 import { Container } from '@/components/container';
-import { fetchDatabaseContent } from '@/utils/notion';
+import { fetchDatabaseContent } from '@/notion/functions';
 import { Mail } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';

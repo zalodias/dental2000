@@ -3,9 +3,9 @@ import { Container } from '@/components/container';
 import { Metric } from '@/components/metric';
 import { ProfileCard } from '@/components/profile-card';
 import { TestimonialCard } from '@/components/testimonial-card';
+import { fetchDatabaseContent } from '@/notion/functions';
 import { SectionHeader } from '@/sections/section-header';
 import { Ticker } from '@/sections/ticker';
-import { fetchDatabaseContent } from '@/utils/notion';
 import Link from 'next/link';
 
 export default async function Clinica() {
