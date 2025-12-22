@@ -28,18 +28,8 @@ export function Navigation() {
           <Image src={Logo} alt="Dental 2000" className="w-40" />
         </Link>
         <div className="flex items-center gap-10">
-          <div className="hidden md:flex md:gap-10">
-            <ul className="hidden items-center gap-3 md:flex">
-              {navigation.map((item) => (
-                <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    className="text-foreground-neutral-subtle hover:text-foreground-neutral-default px-3 py-1 font-medium whitespace-nowrap"
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
+          <div className="hidden xl:flex xl:gap-10">
+            <ul className="hidden items-center gap-3 xl:flex">
             </ul>
             <Button>
               <Link href="#">Marcar consulta</Link>
@@ -47,7 +37,7 @@ export function Navigation() {
           </div>
           <button
             onClick={toggleMenu}
-            className="grid cursor-pointer gap-2 md:hidden"
+            className="grid cursor-pointer gap-2 p-4 xl:hidden"
           >
             <span
               className={`bg-foreground-neutral-default h-px w-5 transition-transform duration-200 ${isMenuOpen ? 'translate-y-1 rotate-45' : ''}`}
@@ -59,7 +49,7 @@ export function Navigation() {
         </div>
       </nav>
       <div
-        className={`bg-background-neutral-default fixed inset-0 z-10 flex h-screen flex-col items-center justify-center gap-10 transition-opacity duration-400 ${isMenuOpen ? 'opacity-100' : 'opacity-0'}`}
+        className={`bg-background-neutral-default fixed inset-0 z-10 flex h-screen flex-col items-start justify-start gap-10 px-5 py-8 pt-30 transition-opacity duration-400 md:px-10 lg:px-20 ${isMenuOpen ? 'opacity-100' : 'opacity-0'} xl:hidden`}
         inert={!isMenuOpen}
       >
         <ul className="flex flex-col items-start gap-10 md:hidden">
