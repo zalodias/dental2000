@@ -47,7 +47,7 @@ export function ComparisonSlider({
   return (
     <div
       ref={slider}
-      className={`relative aspect-[4/3] w-full overflow-hidden select-none ${className}`}
+      className={`relative aspect-4/3 w-full overflow-hidden select-none ${className}`}
       onMouseDown={handleMouseDown}
     >
       <div className="absolute inset-0">
