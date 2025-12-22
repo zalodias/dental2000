@@ -24,10 +24,7 @@ export function Navigation() {
           scrollDirection === 'down' ? '-translate-y-full' : 'translate-y-0'
         } ${isMenuOpen ? 'bg-background-neutral-default border-b border-transparent' : 'bg-background-neutral-default border-border-neutral-subtle border-b'}`}
       >
-        <Link
-          href="/"
-          className="text-title-small font-semibold tracking-tight"
-        >
+        <Link href="/">
           <Image src={Logo} alt="Dental 2000" className="w-40" />
         </Link>
         <div className="flex items-center gap-10">
