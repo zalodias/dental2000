@@ -1,251 +1,170 @@
-import type { Block, RichText } from '@/notion/types';
-import type { ReactNode } from 'react';
+import React from 'react';
 
-function renderRichText(content: RichText[]): ReactNode[] {
-  return content.map((text, index) => {
-    const { annotations, link } = text;
-    const content = text.text.content;
+import { ChevronRight } from 'lucide-react';
 
-    let element: ReactNode = content;
-
-    if (link) {
-      element = (
-        <a
-          key={index}
-          href={link.url}
-          target="_blank"
-          className="text-foreground-brand-default hover:underline hover:underline-offset-2"
-          title={link.url}
-        >
-          {content}
-        </a>
-      );
-    }
-
-    if (annotations.bold) element = <strong key={index}>{element}</strong>;
-    if (annotations.italic) element = <em key={index}>{element}</em>;
-    if (annotations.strikethrough) element = <s key={index}>{element}</s>;
-    if (annotations.underline) element = <u key={index}>{element}</u>;
-    if (annotations.code)
-      element = (
-        <code
-          key={index}
-          className="bg-background-neutral-faded text-body-medium rounded px-2 py-1"
-        >
-          {element}
-        </code>
-      );
-
-    return element;
-  });
+interface NotionBlock {
+  id: string;
+  type: string;
+  children?: NotionBlock[];
+  [key: string]: any;
 }
 
-function CodeBlock({ code, language }: { code: string; language?: string }) {
-  return (
-    <div className="bg-background-neutral-faded my-6 overflow-x-auto rounded-lg p-4">
-      <pre className="text-body-small font-mono">
-        <code>{code}</code>
-      </pre>
-    </div>
-  );
+interface NotionBlockProps {
+  block: NotionBlock;
 }
 
-function renderSingleBlock(
-  block: Block,
-  isPreview: boolean = false,
-): ReactNode {
-  if (isPreview) {
+const renderRichText = (richText: any[]) => {
+  return richText.map(({ annotations, text }: any, index: number) => {
+    const { bold, italic, strikethrough, underline } = annotations;
+
+    const annotationClassNames = [
+      bold ? 'font-medium' : null,
+      italic ? 'italic' : null,
+      strikethrough ? 'line-through' : null,
+      underline ? 'underline' : null,
+    ]
+      .filter(Boolean)
+      .join(' ');
+
     return (
-      <p
-        key={block.id}
-        className="text-body-large text-foreground-neutral-subtle leading-[1.6]"
-      >
-        {renderRichText(block.content)}
-      </p>
+      <React.Fragment key={`${text.content}-${index}`}>
+        {text.link ? (
+          <a
+            key={text.link.url}
+            href={text.link.url}
+            className="text-body-large-subtle text-foreground-brand-default hover:underline hover:underline-offset-2"
+            target="_blank"
+          >
+            {text.content}
+          </a>
+        ) : (
+          <span className={annotationClassNames || undefined}>
+            {text.content}
+          </span>
+        )}
+      </React.Fragment>
     );
-  }
+  });
+};
 
+export function NotionBlock({ block }: NotionBlockProps) {
   switch (block.type) {
-    case 'quote':
-      return (
-        <blockquote
-          key={block.id}
-          className="border-border-neutral-default text-body-large text-foreground-neutral-subtle border-l-4 pl-5 leading-[1.6]"
-        >
-          {renderRichText(block.content)}
-        </blockquote>
-      );
     case 'paragraph':
       return (
         <p
           key={block.id}
-          className="text-body-large text-foreground-neutral-default leading-[1.6]"
+          className="text-title-small text-foreground-neutral-default"
         >
-          {renderRichText(block.content)}
+          {renderRichText(block.paragraph.rich_text)}
         </p>
       );
     case 'heading_1':
       return (
         <h1
           key={block.id}
-          className="text-display-small text-foreground-neutral-default mt-6 font-sans leading-[1.2] font-bold"
+          className="text-display-medium text-foreground-neutral-default mt-10 mb-4 font-medium"
         >
-          {renderRichText(block.content)}
+          {renderRichText(block.heading_1.rich_text)}
         </h1>
       );
     case 'heading_2':
       return (
         <h2
           key={block.id}
-          className="text-title-large text-foreground-neutral-default mt-6 font-sans leading-[1.3] font-bold"
+          className="text-display-small text-foreground-neutral-default mt-8 mb-4 font-medium"
         >
-          {renderRichText(block.content)}
+          {renderRichText(block.heading_2.rich_text)}
         </h2>
       );
     case 'heading_3':
       return (
         <h3
           key={block.id}
-          className="text-title-medium text-foreground-neutral-default mt-5 font-sans leading-[1.4] font-bold"
+          className="text-title-small text-foreground-neutral-default mt-6 mb-3 font-medium"
         >
-          {renderRichText(block.content)}
+          {renderRichText(block.heading_3.rich_text)}
         </h3>
+      );
+    case 'image':
+      const src =
+        block.image.type === 'external'
+          ? block.image.external.url
+          : block.image.file.url;
+      return (
+        <figure key={block.id} className="mt-8 mb-8 grid items-center gap-3">
+          <img
+            src={src}
+            loading="lazy"
+            decoding="async"
+            alt={
+              block.image.caption
+                ? block.image.caption[0]?.text.content
+                : 'Image'
+            }
+          />
+          {block.image.caption && block.image.caption[0]?.text.content && (
+            <figcaption className="text-body-medium text-foreground-neutral-subtle text-center">
+              {block.image.caption[0].text.content}
+            </figcaption>
+          )}
+        </figure>
       );
     case 'bulleted_list_item':
       return (
         <li
           key={block.id}
-          className="text-body-large text-foreground-neutral-default leading-[1.6]"
+          className="text-title-small ms-6 list-disc ps-1 in-first-of-type:mt-4 in-last-of-type:mb-4"
         >
-          {renderRichText(block.content)}
+          {renderRichText(block.bulleted_list_item.rich_text)}
         </li>
       );
     case 'numbered_list_item':
       return (
-        <li
-          key={block.id}
-          className="text-body-large text-foreground-neutral-default leading-[1.6]"
-        >
-          {renderRichText(block.content)}
+        <li key={block.id} className="text-title-small ms-6 list-decimal ps-1">
+          {renderRichText(block.numbered_list_item.rich_text)}
         </li>
       );
-    case 'to_do':
+    case 'callout':
       return (
         <div
           key={block.id}
-          className="text-body-large text-foreground-neutral-default flex items-start gap-2 leading-[1.6]"
+          className="bg-background-neutral-faded my-3 flex gap-2 rounded-lg px-5 py-4"
         >
-          <input type="checkbox" disabled className="mt-1" />
-          <span>{renderRichText(block.content)}</span>
+          {block.callout.icon && <span>{block.callout.icon.emoji}</span>}
+          <div className="grow">{renderRichText(block.callout.rich_text)}</div>
         </div>
+      );
+    case 'divider':
+      return <hr key={block.id} className="border-border-neutral-faded my-2" />;
+    case 'quote':
+      return (
+        <blockquote
+          key={block.id}
+          className="border-l-foreground-neutral-default text-foreground-neutral-default my-3 border-l-2 pl-4 font-serif italic"
+        >
+          {renderRichText(block.quote.rich_text)}
+        </blockquote>
       );
     case 'toggle':
       return (
-        <details
-          key={block.id}
-          className="text-body-large text-foreground-neutral-default leading-[1.6]"
-        >
-          <summary className="cursor-pointer">
-            {renderRichText(block.content)}
+        <details className="group mt-4 first-of-type:mt-6">
+          <summary className="text-title-small mb-2 flex cursor-pointer items-center gap-2 font-medium">
+            <div className="p-0.5 transition group-open:rotate-90">
+              <ChevronRight size={20} />
+            </div>
+            <span>{renderRichText(block.toggle.rich_text)}</span>
           </summary>
+          <div className="ms-8">
+            {block.children?.map((child: NotionBlock) => (
+              <NotionBlock key={child.id} block={child} />
+            ))}
+          </div>
         </details>
       );
-    case 'code':
-      return (
-        <CodeBlock
-          key={block.id}
-          code={block.content.map((text) => text.text.content).join('')}
-          language={block.language || 'plaintext'}
-        />
-      );
-    case 'divider':
-      return (
-        <hr
-          key={block.id}
-          className="border-border-neutral-default my-6 border-t"
-        />
-      );
-    case 'image':
-      if (block.image) {
-        return (
-          <div key={block.id} className="my-6">
-            <img
-              src={block.image}
-              alt=""
-              className="w-full rounded-lg"
-              loading="lazy"
-            />
-          </div>
-        );
-      }
-      return null;
     default:
-      return null;
+      if (process.env.NODE_ENV !== 'production') {
+        console.log('Unsupported type ' + block?.value?.type);
+      }
+      return <div />;
   }
-}
-
-export function renderBlocks(
-  blocks: Block[],
-  isPreview: boolean = false,
-): ReactNode[] {
-  const result: ReactNode[] = [];
-  let i = 0;
-
-  while (i < blocks.length) {
-    const block = blocks[i];
-
-    if (!block) {
-      i++;
-      continue;
-    }
-
-    if (block.type === 'bulleted_list_item' && !isPreview) {
-      const listItems: ReactNode[] = [];
-      const startIndex = i;
-
-      while (i < blocks.length && blocks[i]?.type === 'bulleted_list_item') {
-        listItems.push(renderSingleBlock(blocks[i], isPreview));
-        i++;
-      }
-
-      if (listItems.length > 0) {
-        result.push(
-          <ul
-            key={`ul-${blocks[startIndex]?.id || i}`}
-            className="ml-6 list-disc space-y-2"
-          >
-            {listItems}
-          </ul>,
-        );
-      }
-      continue;
-    }
-
-    if (block.type === 'numbered_list_item' && !isPreview) {
-      const listItems: ReactNode[] = [];
-      const startIndex = i;
-
-      while (i < blocks.length && blocks[i]?.type === 'numbered_list_item') {
-        listItems.push(renderSingleBlock(blocks[i], isPreview));
-        i++;
-      }
-
-      if (listItems.length > 0) {
-        result.push(
-          <ol
-            key={`ol-${blocks[startIndex]?.id || i}`}
-            className="ml-6 list-decimal space-y-2"
-          >
-            {listItems}
-          </ol>,
-        );
-      }
-      continue;
-    }
-
-    result.push(renderSingleBlock(block, isPreview));
-    i++;
-  }
-
-  return result;
 }
