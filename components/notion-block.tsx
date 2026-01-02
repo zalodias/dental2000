@@ -161,6 +161,25 @@ export function NotionBlock({ block }: NotionBlockProps) {
           </div>
         </details>
       );
+    case 'column_list':
+      return (
+        <div
+          key={block.id}
+          className="my-4 flex flex-col gap-4 md:flex-row md:gap-6"
+        >
+          {block.children?.map((child: NotionBlock) => (
+            <NotionBlock key={child.id} block={child} />
+          ))}
+        </div>
+      );
+    case 'column':
+      return (
+        <div key={block.id} className="flex-1 space-y-2">
+          {block.children?.map((child: NotionBlock) => (
+            <NotionBlock key={child.id} block={child} />
+          ))}
+        </div>
+      );
     default:
       if (process.env.NODE_ENV !== 'production') {
         console.log('Unsupported type ' + block?.value?.type);
