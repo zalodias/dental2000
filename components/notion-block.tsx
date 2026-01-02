@@ -128,10 +128,15 @@ export function NotionBlock({ block }: NotionBlockProps) {
       return (
         <div
           key={block.id}
-          className="bg-background-neutral-faded my-3 flex gap-2 rounded-lg px-5 py-4"
+          className="bg-background-neutral-faded my-3 flex flex-col gap-1 px-5 py-4 [&_:is(h1,h2,h3)]:m-0"
         >
           {block.callout.icon && <span>{block.callout.icon.emoji}</span>}
-          <div className="grow">{renderRichText(block.callout.rich_text)}</div>
+          {block.callout.rich_text.length > 0 && (
+            <div>{renderRichText(block.callout.rich_text)}</div>
+          )}
+          {block.children?.map((child: NotionBlock) => (
+            <NotionBlock key={child.id} block={child} />
+          ))}
         </div>
       );
     case 'divider':
