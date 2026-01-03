@@ -45,7 +45,7 @@ export default async function Especialidade({
 
   return (
     <>
-      <Container>
+      <Container className="pt-30 md:pt-40 lg:pt-40">
         <h1 className="text-display-medium text-foreground-neutral-default font-medium">
           {(page.properties.Nome as any).title[0]?.plain_text || ''}
         </h1>
