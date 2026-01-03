@@ -32,4 +32,5 @@ export interface Block {
     };
     rich_text: RichText[];
   };
+  children?: Block[];
 }
