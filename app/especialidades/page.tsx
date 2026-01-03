@@ -11,7 +11,7 @@ export default async function Especialidades() {
 
   return (
     <>
-      <Container>
+      <Container className="pt-30 md:pt-40 lg:pt-40">
         <SectionHeader
           eyebrow="Especialidades"
           title="Um cuidado completo para o seu sorriso"
