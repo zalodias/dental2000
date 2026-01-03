@@ -49,10 +49,8 @@ export default async function Especialidade({
         <h1 className="text-display-medium text-foreground-neutral-default font-medium">
           {(page.properties.Nome as any).title[0]?.plain_text || ''}
         </h1>
-        <div>
-          {blocks.map((block) => (
-            <NotionBlock key={block.id} block={block} />
-          ))}
+        <div className="flex flex-col gap-4">
+          <NotionBlock blocks={blocks} />
         </div>
       </Container>
     </>
