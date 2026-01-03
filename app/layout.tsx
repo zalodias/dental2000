@@ -1,3 +1,5 @@
+export const revalidate = 60;
+
 import '@/app/globals.css';
 import { Footer } from '@/components/footer';
 import { Navigation } from '@/sections/navigation';
