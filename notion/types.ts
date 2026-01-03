@@ -19,5 +19,10 @@ export interface Block {
   type: string;
   content: RichText[];
   language?: string;
-  image?: string;
+  image?: {
+    type: 'external' | 'file';
+    external?: { url: string };
+    file?: { url: string };
+    caption?: RichText[];
+  };
 }
