@@ -1,16 +1,16 @@
 export interface RichText {
+  type: string;
   text: {
     content: string;
+    link?: string | undefined;
   };
   annotations: {
-    bold?: boolean;
-    italic?: boolean;
-    strikethrough?: boolean;
-    underline?: boolean;
-    code?: boolean;
-  };
-  link?: {
-    url: string;
+    bold: boolean;
+    italic: boolean;
+    strikethrough: boolean;
+    underline: boolean;
+    code: boolean;
+    color: string;
   };
 }
 
