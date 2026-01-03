@@ -1,4 +1,6 @@
+import { processBlock } from '@/notion/blocks';
 import { notion } from '@/notion/client';
+import { Block } from '@/notion/types';
 import type {
   BlockObjectResponse,
   PageObjectResponse,
@@ -52,26 +54,23 @@ export async function fetchPageContent(
   return data as PageObjectResponse;
 }
 
-type BlockWithChildren = BlockObjectResponse & {
-  children?: BlockWithChildren[];
-};
-
-export async function fetchBlockContent(
-  id: string,
-): Promise<BlockWithChildren[]> {
+export async function fetchBlockContent(id: string): Promise<Block[]> {
   const { results } = await notion.blocks.children.list({
     block_id: id,
   });
 
   const blocks = await Promise.all(
-    results.map(async (block): Promise<BlockWithChildren> => {
+    results.map(async (block): Promise<Block | null> => {
+      const processedBlock = processBlock(block as BlockObjectResponse);
+
       if ('has_children' in block && block.has_children) {
         const children = await fetchBlockContent(block.id);
-        return { ...(block as BlockObjectResponse), children };
+        return { ...processedBlock!, children };
       }
-      return block as BlockObjectResponse;
+
+      return processedBlock;
     }),
   );
 
-  return blocks as BlockWithChildren[];
+  return blocks.filter((block): block is Block => block !== null);
 }
