@@ -25,4 +25,11 @@ export interface Block {
     file?: { url: string };
     caption?: RichText[];
   };
+  callout?: {
+    icon?: {
+      type?: string;
+      emoji?: string;
+    };
+    rich_text: RichText[];
+  };
 }
