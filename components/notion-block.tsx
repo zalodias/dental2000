@@ -1,53 +1,58 @@
-import React from 'react';
-
+import { Block, RichText } from '@/notion/types';
 import { ChevronRight } from 'lucide-react';
-
-interface NotionBlock {
-  id: string;
-  type: string;
-  children?: NotionBlock[];
-  [key: string]: any;
-}
+import { ReactNode } from 'react';
 
 interface NotionBlockProps {
-  block: NotionBlock;
+  blocks?: Block[];
+  block?: Block;
 }
 
-const renderRichText = (richText: any[]) => {
-  return richText.map(({ annotations, text }: any, index: number) => {
-    const { bold, italic, strikethrough, underline } = annotations;
+export function NotionBlock({ block, blocks }: NotionBlockProps) {
+  if (block) return renderBlock(block);
+  if (blocks) return renderBlocks(blocks);
 
-    const annotationClassNames = [
-      bold ? 'font-medium' : null,
-      italic ? 'italic' : null,
-      strikethrough ? 'line-through' : null,
-      underline ? 'underline' : null,
-    ]
-      .filter(Boolean)
-      .join(' ');
+  return null;
+}
 
-    return (
-      <React.Fragment key={`${text.content}-${index}`}>
-        {text.link ? (
-          <a
-            key={text.link.url}
-            href={text.link.url}
-            className="text-body-large-subtle text-foreground-brand-default hover:underline hover:underline-offset-2"
-            target="_blank"
-          >
-            {text.content}
-          </a>
-        ) : (
-          <span className={annotationClassNames || undefined}>
-            {text.content}
-          </span>
-        )}
-      </React.Fragment>
-    );
+function renderRichText(richText: RichText[]) {
+  return richText.map((text, index) => {
+    const content = text.text.content;
+    const link = text.text.link;
+    const annotations = text.annotations;
+
+    let element: ReactNode = content;
+
+    if (link) {
+      element = (
+        <a
+          key={index}
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="link-body"
+          title={link}
+        >
+          {content}
+        </a>
+      );
+    }
+
+    if (annotations.bold) element = <strong key={index}>{element}</strong>;
+    if (annotations.italic) element = <em key={index}>{element}</em>;
+    if (annotations.strikethrough) element = <s key={index}>{element}</s>;
+    if (annotations.underline) element = <u key={index}>{element}</u>;
+    if (annotations.code)
+      element = (
+        <code className="bg-tertiary rounded px-1 py-0.5 text-sm" key={index}>
+          {element}
+        </code>
+      );
+
+    return element;
   });
-};
+}
 
-export function NotionBlock({ block }: NotionBlockProps) {
+function renderBlock(block: Block): ReactNode {
   switch (block.type) {
     case 'paragraph':
       return (
@@ -55,115 +60,112 @@ export function NotionBlock({ block }: NotionBlockProps) {
           key={block.id}
           className="text-title-small text-foreground-neutral-default"
         >
-          {renderRichText(block.paragraph.rich_text)}
+          {renderRichText(block.content)}
         </p>
       );
     case 'heading_1':
       return (
         <h1
           key={block.id}
-          className="text-display-medium text-foreground-neutral-default mt-10 mb-4 font-medium"
+          className="text-display-medium text-foreground-neutral-default mt-6 font-medium"
         >
-          {renderRichText(block.heading_1.rich_text)}
+          {renderRichText(block.content)}
         </h1>
       );
     case 'heading_2':
       return (
         <h2
           key={block.id}
-          className="text-display-small text-foreground-neutral-default mt-8 mb-4 font-medium"
+          className="text-display-small text-foreground-neutral-default mt-5 font-medium"
         >
-          {renderRichText(block.heading_2.rich_text)}
+          {renderRichText(block.content)}
         </h2>
       );
     case 'heading_3':
       return (
         <h3
           key={block.id}
-          className="text-title-small text-foreground-neutral-default mt-6 mb-3 font-medium"
+          className="text-title-small text-foreground-neutral-default mt-4 font-medium"
         >
-          {renderRichText(block.heading_3.rich_text)}
+          {renderRichText(block.content)}
         </h3>
       );
     case 'image':
       const src =
-        block.image.type === 'external'
-          ? block.image.external.url
-          : block.image.file.url;
+        block.image?.type === 'external'
+          ? block.image?.external?.url
+          : block.image?.file?.url;
       return (
-        <figure key={block.id} className="mt-8 mb-8 grid items-center gap-3">
+        <figure key={block.id} className="mt-8 mb-4 grid items-center gap-3">
           <img
             src={src}
             loading="lazy"
             decoding="async"
             alt={
-              block.image.caption
-                ? block.image.caption[0]?.text.content
+              block.image?.caption
+                ? block.image?.caption[0]?.text.content
                 : 'Image'
             }
           />
-          {block.image.caption && block.image.caption[0]?.text.content && (
+          {block.image?.caption && block.image?.caption[0]?.text.content && (
             <figcaption className="text-body-medium text-foreground-neutral-subtle text-center">
-              {block.image.caption[0].text.content}
+              {block.image?.caption[0].text.content}
             </figcaption>
           )}
         </figure>
       );
     case 'bulleted_list_item':
       return (
-        <li
-          key={block.id}
-          className="text-title-small ms-6 list-disc ps-1 in-first-of-type:mt-4 in-last-of-type:mb-4"
-        >
-          {renderRichText(block.bulleted_list_item.rich_text)}
+        <li key={block.id} className="text-title-small ps-1">
+          {renderRichText(block.content)}
         </li>
       );
     case 'numbered_list_item':
       return (
-        <li key={block.id} className="text-title-small ms-6 list-decimal ps-1">
-          {renderRichText(block.numbered_list_item.rich_text)}
+        <li key={block.id} className="text-title-small ps-1">
+          {renderRichText(block.content)}
         </li>
       );
     case 'callout':
       return (
         <div
           key={block.id}
-          className="bg-background-neutral-faded my-3 flex flex-col gap-1 px-5 py-4 [&_:is(h1,h2,h3)]:m-0"
+          className="bg-background-neutral-faded flex flex-col gap-2 px-6 py-5 [&_:is(h1,h2,h3)]:m-0"
         >
-          {block.callout.icon && <span>{block.callout.icon.emoji}</span>}
-          {block.callout.rich_text.length > 0 && (
-            <div>{renderRichText(block.callout.rich_text)}</div>
-          )}
-          {block.children?.map((child: NotionBlock) => (
+          {renderRichText(block.content)}
+          {block.children?.map((child: Block) => (
             <NotionBlock key={child.id} block={child} />
           ))}
         </div>
       );
     case 'divider':
-      return <hr key={block.id} className="border-border-neutral-faded my-2" />;
+      return (
+        <hr key={block.id} className="border-border-neutral-default my-4" />
+      );
     case 'quote':
       return (
         <blockquote
           key={block.id}
           className="border-l-foreground-neutral-default text-foreground-neutral-default my-3 border-l-2 pl-4 font-serif italic"
         >
-          {renderRichText(block.quote.rich_text)}
+          {renderRichText(block.content)}
         </blockquote>
       );
     case 'toggle':
       return (
-        <details className="group mt-4 first-of-type:mt-6">
+        <details
+          key={block.id}
+          className="group border-b-border-neutral-default mt-4 border-b py-4 first-of-type:mt-0"
+        >
           <summary className="text-title-small mb-2 flex cursor-pointer items-center gap-2 font-medium">
+            <div className="grow">{renderRichText(block.content)}</div>
             <div className="p-0.5 transition group-open:rotate-90">
               <ChevronRight size={20} />
             </div>
-            <span>{renderRichText(block.toggle.rich_text)}</span>
           </summary>
-          <div className="ms-8">
-            {block.children?.map((child: NotionBlock) => (
-              <NotionBlock key={child.id} block={child} />
-            ))}
-          </div>
+          {block.children?.map((child: Block) => (
+            <NotionBlock key={child.id} block={child} />
+          ))}
         </details>
       );
     case 'column_list':
@@ -172,7 +174,7 @@ export function NotionBlock({ block }: NotionBlockProps) {
           key={block.id}
           className="my-4 flex flex-col gap-4 md:flex-row md:gap-6"
         >
-          {block.children?.map((child: NotionBlock) => (
+          {block.children?.map((child: Block) => (
             <NotionBlock key={child.id} block={child} />
           ))}
         </div>
@@ -180,15 +182,79 @@ export function NotionBlock({ block }: NotionBlockProps) {
     case 'column':
       return (
         <div key={block.id} className="flex-1 space-y-2">
-          {block.children?.map((child: NotionBlock) => (
+          {block.children?.map((child: Block) => (
             <NotionBlock key={child.id} block={child} />
           ))}
         </div>
       );
     default:
-      if (process.env.NODE_ENV !== 'production') {
-        console.log('Unsupported type ' + block?.value?.type);
-      }
-      return <div />;
+      return null;
   }
+}
+
+function renderBlocks(blocks: Block[]): ReactNode {
+  const result: ReactNode[] = [];
+  let i = 0;
+
+  while (i < blocks.length) {
+    const block = blocks[i];
+
+    if (block.type === 'bulleted_list_item') {
+      const listItems: ReactNode[] = [];
+      const startIndex = i;
+
+      while (i < blocks.length && blocks[i].type === 'bulleted_list_item') {
+        listItems.push(renderBlock(blocks[i]));
+        i++;
+      }
+
+      result.push(
+        <ul
+          key={blocks[startIndex].id}
+          className="ml-6 flex list-disc flex-col gap-2"
+        >
+          {listItems}
+        </ul>,
+      );
+      continue;
+    }
+
+    if (block.type === 'numbered_list_item') {
+      const listItems: ReactNode[] = [];
+      const startIndex = i;
+
+      while (i < blocks.length && blocks[i].type === 'numbered_list_item') {
+        listItems.push(renderBlock(blocks[i]));
+        i++;
+      }
+
+      result.push(
+        <ol
+          key={blocks[startIndex].id}
+          className="ml-6 flex list-decimal flex-col gap-2"
+        >
+          {listItems}
+        </ol>,
+      );
+      continue;
+    }
+
+    if (block.type === 'toggle') {
+      const accordionItems: ReactNode[] = [];
+      const startIndex = i;
+
+      while (i < blocks.length && blocks[i].type === 'toggle') {
+        accordionItems.push(renderBlock(blocks[i]));
+        i++;
+      }
+
+      result.push(<div key={blocks[startIndex].id}>{accordionItems}</div>);
+      continue;
+    }
+
+    result.push(renderBlock(block));
+    i++;
+  }
+
+  return result;
 }
