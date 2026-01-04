@@ -1,0 +1,51 @@
+import { Container } from '@/components/container';
+import { fetchDatabaseContent, fetchPageContent } from '@/notion/functions';
+import { generateSlug } from '@/utils/utils';
+
+export async function generateStaticParams() {
+  const clinicalCases = await fetchDatabaseContent(
+    process.env.NOTION_CASOS_CLINICOS_DATABASE_ID!,
+  );
+
+  return clinicalCases.map((clinicalCase) => ({
+    slug: generateSlug(
+      (clinicalCase.properties.Nome as any).title[0].plain_text,
+    ),
+  }));
+}
+
+async function getPageData(slug: string) {
+  const database = await fetchDatabaseContent(
+    process.env.NOTION_CASOS_CLINICOS_DATABASE_ID!,
+  );
+
+  const id = database.find(
+    (clinicalCase) =>
+      generateSlug(
+        (clinicalCase.properties.Nome as any).title[0].plain_text,
+      ) === slug,
+  )?.id;
+
+  const page = await fetchPageContent(id!);
+
+  return { page, id };
+}
+
+export default async function CasoClinico({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = await params;
+  const { page } = await getPageData(slug);
+
+  return (
+    <>
+      <Container className="pt-30 md:pt-40 lg:pt-40">
+        <h1 className="text-display-medium text-foreground-neutral-default font-medium">
+          {(page.properties.Nome as any).title[0]?.plain_text || ''}
+        </h1>
+      </Container>
+    </>
+  );
+}
