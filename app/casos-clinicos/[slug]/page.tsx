@@ -37,7 +37,15 @@ export default async function CasoClinico({
   params: { slug: string };
 }) {
   const { slug } = await params;
-  const { page } = await getPageData(slug);
+
+  const relations = (page.properties.Especialidades as any).relation || [];
+
+  const specialities = await Promise.all(
+    relations.map(async (relation: { id: string }) => {
+      const page = await fetchPageContent(relation.id);
+      return (page.properties.Nome as any).title[0].plain_text;
+    }),
+  );
 
   return (
     <>
@@ -45,6 +53,15 @@ export default async function CasoClinico({
         <h1 className="text-display-medium text-foreground-neutral-default font-medium">
           {(page.properties.Nome as any).title[0]?.plain_text || ''}
         </h1>
+        {specialities.map((speciality) => (
+          <Link
+            href={`/especialidades/${generateSlug(speciality)}`}
+            key={speciality}
+            className="bg-background-neutral-faded hover:bg-background-neutral-subtle text-foreground-neutral-subtle w-fit px-3 py-2 font-medium transition-colors"
+          >
+            {speciality}
+          </Link>
+        ))}
       </Container>
     </>
   );
