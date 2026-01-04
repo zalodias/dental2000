@@ -1,6 +1,12 @@
 import { Container } from '@/components/container';
-import { fetchDatabaseContent, fetchPageContent } from '@/notion/functions';
+import { NotionBlock } from '@/components/notion-block';
+import {
+  fetchBlockContent,
+  fetchDatabaseContent,
+  fetchPageContent,
+} from '@/notion/functions';
 import { generateSlug } from '@/utils/utils';
+import Link from 'next/link';
 
 export async function generateStaticParams() {
   const clinicalCases = await fetchDatabaseContent(
@@ -37,6 +43,9 @@ export default async function CasoClinico({
   params: { slug: string };
 }) {
   const { slug } = await params;
+  const { page, id } = await getPageData(slug);
+
+  const blocks = await fetchBlockContent(id!);
 
   const relations = (page.properties.Especialidades as any).relation || [];
 
@@ -62,6 +71,9 @@ export default async function CasoClinico({
             {speciality}
           </Link>
         ))}
+        <div className="flex flex-col gap-4">
+          <NotionBlock blocks={blocks} />
+        </div>
       </Container>
     </>
   );
