@@ -72,48 +72,44 @@ export default async function CasoClinico({
   });
 
   return (
-    <>
-      <Container className="pt-30 md:pt-40 lg:pt-40">
-        <div className="flex flex-col gap-5">
-          <h1 className="text-display-medium text-foreground-neutral-default font-medium">
-            {(page.properties.Nome as any).title[0]?.plain_text || ''}
-          </h1>
-        </div>
-        <div className="flex flex-col gap-4">
-          <NotionBlock blocks={blocks} />
-        </div>
-        <ComparisonSlider />
-        {page.properties.Testemunho && (
-          <TestimonialQuote
-            quote={
-              (page.properties.Testemunho as any).rich_text?.[0]?.plain_text
-            }
-          />
-        )}
-        <SectionHeader title="Explore outros casos clínicos" />
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-x-8 gap-y-12">
-          {relatedClinicalCases.map((clinicalCase) => (
-            <Link
-              href={`/casos-clinicos/${generateSlug((clinicalCase.properties.Nome as any).title?.[0]?.plain_text)}`}
-              key={clinicalCase.id}
-              className="flex flex-col gap-6"
-            >
-              <ComparisonSlider />
-              <div className="flex flex-col gap-3">
-                <h3 className="text-title-large font-medium">
-                  {(clinicalCase.properties.Nome as any).title?.[0]?.plain_text}
-                </h3>
-                <p className="text-title-small text-foreground-neutral-subtle">
-                  {
-                    (clinicalCase.properties.Descrição as any).rich_text[0]
-                      .plain_text
-                  }
-                </p>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </Container>
-    </>
+    <Container className="pt-30 md:pt-40 lg:pt-40">
+      <div className="flex flex-col gap-5">
+        <h1 className="text-display-medium text-foreground-neutral-default font-medium">
+          {(page.properties.Nome as any).title[0]?.plain_text || ''}
+        </h1>
+      </div>
+      <div className="flex flex-col gap-4">
+        <NotionBlock blocks={blocks} />
+      </div>
+      <ComparisonSlider />
+      {page.properties.Testemunho && (
+        <TestimonialQuote
+          quote={(page.properties.Testemunho as any).rich_text?.[0]?.plain_text}
+        />
+      )}
+      <SectionHeader title="Explore outros casos clínicos" />
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-x-8 gap-y-12">
+        {relatedClinicalCases.map((clinicalCase) => (
+          <Link
+            href={`/casos-clinicos/${generateSlug((clinicalCase.properties.Nome as any).title?.[0]?.plain_text)}`}
+            key={clinicalCase.id}
+            className="flex flex-col gap-6"
+          >
+            <ComparisonSlider />
+            <div className="flex flex-col gap-3">
+              <h3 className="text-title-large font-medium">
+                {(clinicalCase.properties.Nome as any).title?.[0]?.plain_text}
+              </h3>
+              <p className="text-title-small text-foreground-neutral-subtle">
+                {
+                  (clinicalCase.properties.Descrição as any).rich_text[0]
+                    .plain_text
+                }
+              </p>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </Container>
   );
 }
