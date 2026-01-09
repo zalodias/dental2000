@@ -1,6 +1,9 @@
 import { Facebook } from '@/assets/icons/facebook';
 import { Instagram } from '@/assets/icons/instagram';
 import Dental2000 from '@/assets/logos/dental2000/lockup-dark-horizontal.svg';
+import CTT from '@/assets/logos/insurers/ctt.svg';
+import Medis from '@/assets/logos/insurers/medis.svg';
+import Multicare from '@/assets/logos/insurers/multicare.svg';
 import { Container } from '@/components/container';
 import { fetchDatabaseContent } from '@/notion/functions';
 import { Mail } from 'lucide-react';
@@ -66,16 +69,36 @@ export async function Footer() {
             ))}
           </div>
         </div>
-        <div className="border-border-neutral-default flex flex-wrap gap-3 border-t pt-5">
-          <div className="flex grow gap-4">
-            <Link href="#">Livro de Reclamações</Link>
+        <div className="flex flex-col gap-10">
+          <div className="flex flex-col gap-5 md:flex-row md:items-center md:gap-10">
+            <span className="text-foreground-neutral-default">
+              Em parceria com
+            </span>
+            <div className="flex items-center gap-8">
+              <Image
+                src={Multicare}
+                alt="Multicare"
+                className="h-8 w-auto grayscale"
+              />
+              <Image
+                src={Medis}
+                alt="Medis"
+                className="h-10 w-auto grayscale"
+              />
+              <Image src={CTT} alt="CTT" className="h-8 w-auto grayscale" />
+            </div>
           </div>
-          <span>
-            © {new Date().getFullYear()} Dental 2000 ・ Made with 🦷 by{' '}
-            <a href="https://www.zalodias.com" target="_blank">
-              Gonçalo Dias
-            </a>
-          </span>
+          <div className="border-border-neutral-default flex flex-wrap gap-3 border-t pt-5">
+            <div className="flex grow gap-4">
+              <Link href="#">Livro de Reclamações</Link>
+            </div>
+            <span>
+              © {new Date().getFullYear()} Dental 2000 ・ Made with 🦷 by{' '}
+              <a href="https://www.zalodias.com" target="_blank">
+                Gonçalo Dias
+              </a>
+            </span>
+          </div>
         </div>
       </Container>
     </footer>
