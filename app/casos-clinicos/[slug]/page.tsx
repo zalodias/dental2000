@@ -83,21 +83,23 @@ export default async function CasoClinico({
           <NotionBlock blocks={blocks} />
         </div>
         <ComparisonSlider />
-        <TestimonialQuote
-          quote={(page.properties.Testemunho as any).rich_text[0].plain_text}
-        />
+          <TestimonialQuote
+            quote={
+              (page.properties.Testemunho as any).rich_text?.[0]?.plain_text
+            }
+          />
         <SectionHeader title="Explore outros casos clínicos" />
         <div className="grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-x-8 gap-y-12">
           {relatedClinicalCases.map((clinicalCase) => (
             <Link
-              href={`/casos-clinicos/${generateSlug((clinicalCase.properties.Nome as any).title[0].plain_text)}`}
+              href={`/casos-clinicos/${generateSlug((clinicalCase.properties.Nome as any).title?.[0]?.plain_text)}`}
               key={clinicalCase.id}
               className="flex flex-col gap-6"
             >
               <ComparisonSlider />
               <div className="flex flex-col gap-3">
                 <h3 className="text-title-large font-medium">
-                  {(clinicalCase.properties.Nome as any).title[0].plain_text}
+                  {(clinicalCase.properties.Nome as any).title?.[0]?.plain_text}
                 </h3>
                 <p className="text-title-small text-foreground-neutral-subtle">
                   {
