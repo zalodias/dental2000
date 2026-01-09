@@ -17,7 +17,7 @@ export default async function CasosClinicos() {
         title="Resultados reais dos nossos pacientes"
         subtitle="Cada caso clínico reflete um plano de tratamento personalizado, baseado num diagnóstico rigoroso, tecnologia avançada e acompanhamento clínico contínuo pela nossa equipa dentária."
       />
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-x-8 gap-y-12">
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(360px,1fr))] gap-x-8 gap-y-12">
         {clinicalCases.map((clinicalCase) => (
           <Link
             href={`/casos-clinicos/${generateSlug((clinicalCase.properties.Nome as any).title[0].plain_text)}`}
