@@ -5,6 +5,7 @@ import {
   fetchDatabaseContent,
   fetchPageContent,
 } from '@/notion/functions';
+import { SectionHeader } from '@/sections/section-header';
 import { generateSlug } from '@/utils/utils';
 import Link from 'next/link';
 
@@ -56,6 +57,25 @@ export default async function CasoClinico({
     }),
   );
 
+  const clinicalCases = await fetchDatabaseContent(
+    process.env.NOTION_CASOS_CLINICOS_DATABASE_ID!,
+  );
+
+  const currentSpecialities = relations.map(
+    (relation: { id: string }) => relation.id,
+  );
+
+  const relatedClinicalCases = clinicalCases.filter((clinicalCase) => {
+    if (clinicalCase.id === id) return false;
+
+    const clinicalCaseSpecialities =
+      (clinicalCase.properties.Especialidades as any).relation || [];
+
+    return clinicalCaseSpecialities
+      .map((relation: { id: string }) => relation.id)
+      .some((id: string) => currentSpecialities.includes(id));
+  });
+
   return (
     <>
       <Container className="pt-30 md:pt-40 lg:pt-40">
@@ -73,6 +93,29 @@ export default async function CasoClinico({
         ))}
         <div className="flex flex-col gap-4">
           <NotionBlock blocks={blocks} />
+        </div>
+        <SectionHeader title="Explore outros casos clínicos" />
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-x-8 gap-y-12">
+          {relatedClinicalCases.map((clinicalCase) => (
+            <Link
+              href={`/casos-clinicos/${generateSlug((clinicalCase.properties.Nome as any).title[0].plain_text)}`}
+              key={clinicalCase.id}
+              className="flex flex-col gap-6"
+            >
+              <ComparisonSlider />
+              <div className="flex flex-col gap-3">
+                <h3 className="text-title-large font-medium">
+                  {(clinicalCase.properties.Nome as any).title[0].plain_text}
+                </h3>
+                <p className="text-title-small text-foreground-neutral-subtle">
+                  {
+                    (clinicalCase.properties.Descrição as any).rich_text[0]
+                      .plain_text
+                  }
+                </p>
+              </div>
+            </Link>
+          ))}
         </div>
       </Container>
     </>
