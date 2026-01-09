@@ -1,5 +1,7 @@
+import { ComparisonSlider } from '@/components/comparison-slider';
 import { Container } from '@/components/container';
 import { NotionBlock } from '@/components/notion-block';
+import { TestimonialQuote } from '@/components/testimonial-quote';
 import {
   fetchBlockContent,
   fetchDatabaseContent,
@@ -79,18 +81,24 @@ export default async function CasoClinico({
   return (
     <>
       <Container className="pt-30 md:pt-40 lg:pt-40">
-        <h1 className="text-display-medium text-foreground-neutral-default font-medium">
-          {(page.properties.Nome as any).title[0]?.plain_text || ''}
-        </h1>
-        {specialities.map((speciality) => (
-          <Link
-            href={`/especialidades/${generateSlug(speciality)}`}
-            key={speciality}
-            className="bg-background-neutral-faded hover:bg-background-neutral-subtle text-foreground-neutral-subtle w-fit px-3 py-2 font-medium transition-colors"
-          >
-            {speciality}
-          </Link>
-        ))}
+        <div className="flex flex-col gap-5">
+          <h1 className="text-display-medium text-foreground-neutral-default font-medium">
+            {(page.properties.Nome as any).title[0]?.plain_text || ''}
+          </h1>
+          {specialities.map((speciality) => (
+            <Link
+              href={`/especialidades/${generateSlug(speciality)}`}
+              key={speciality}
+              className="bg-background-neutral-faded hover:bg-background-neutral-subtle text-foreground-neutral-subtle hover:text-foreground-neutral-strong w-fit px-3 py-2 font-medium transition-colors"
+            >
+              {speciality}
+            </Link>
+          ))}
+        </div>
+        <ComparisonSlider />
+        <TestimonialQuote
+          quote={(page.properties.Testemunho as any).rich_text[0].plain_text}
+        />
         <div className="flex flex-col gap-4">
           <NotionBlock blocks={blocks} />
         </div>
