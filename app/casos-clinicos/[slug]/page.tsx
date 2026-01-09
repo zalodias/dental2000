@@ -52,13 +52,6 @@ export default async function CasoClinico({
 
   const relations = (page.properties.Especialidades as any).relation || [];
 
-  const specialities = await Promise.all(
-    relations.map(async (relation: { id: string }) => {
-      const page = await fetchPageContent(relation.id);
-      return (page.properties.Nome as any).title[0].plain_text;
-    }),
-  );
-
   const clinicalCases = await fetchDatabaseContent(
     process.env.NOTION_CASOS_CLINICOS_DATABASE_ID!,
   );
@@ -85,23 +78,14 @@ export default async function CasoClinico({
           <h1 className="text-display-medium text-foreground-neutral-default font-medium">
             {(page.properties.Nome as any).title[0]?.plain_text || ''}
           </h1>
-          {specialities.map((speciality) => (
-            <Link
-              href={`/especialidades/${generateSlug(speciality)}`}
-              key={speciality}
-              className="bg-background-neutral-faded hover:bg-background-neutral-subtle text-foreground-neutral-subtle hover:text-foreground-neutral-strong w-fit px-3 py-2 font-medium transition-colors"
-            >
-              {speciality}
-            </Link>
-          ))}
+        </div>
+        <div className="flex flex-col gap-4">
+          <NotionBlock blocks={blocks} />
         </div>
         <ComparisonSlider />
         <TestimonialQuote
           quote={(page.properties.Testemunho as any).rich_text[0].plain_text}
         />
-        <div className="flex flex-col gap-4">
-          <NotionBlock blocks={blocks} />
-        </div>
         <SectionHeader title="Explore outros casos clínicos" />
         <div className="grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-x-8 gap-y-12">
           {relatedClinicalCases.map((clinicalCase) => (
