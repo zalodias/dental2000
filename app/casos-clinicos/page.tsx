@@ -1,6 +1,7 @@
 import { ComparisonSlider } from '@/components/comparison-slider';
 import { Container } from '@/components/container';
 import { fetchDatabaseContent } from '@/notion/functions';
+import { ActionCall } from '@/sections/action-call';
 import { SectionHeader } from '@/sections/section-header';
 import { generateSlug } from '@/utils/utils';
 import Link from 'next/link';
@@ -39,6 +40,7 @@ export default async function CasosClinicos() {
           </Link>
         ))}
       </div>
+      <ActionCall />
     </Container>
   );
 }
