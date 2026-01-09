@@ -2,7 +2,7 @@
 
 import { Facebook } from '@/assets/icons/facebook';
 import { Instagram } from '@/assets/icons/instagram';
-import Logo from '@/assets/logos/lockup-dark-horizontal.svg';
+import Dental2000 from '@/assets/logos/dental2000/lockup-dark-horizontal.svg';
 import { Button } from '@/components/button';
 import { navigation } from '@/data/navigation';
 import useScrollDirection from '@/hooks/useScrollDirection';
@@ -30,7 +30,7 @@ export function Navigation() {
         } ${isMenuOpen ? 'bg-background-neutral-default border-b border-transparent' : 'bg-background-neutral-default border-border-neutral-subtle border-b'}`}
       >
         <Link href="/">
-          <Image src={Logo} alt="Dental 2000" className="w-40" />
+          <Image src={Dental2000} alt="Dental 2000" className="w-40" />
         </Link>
         <div className="flex items-center gap-10">
           <div className="hidden xl:flex xl:gap-10">
