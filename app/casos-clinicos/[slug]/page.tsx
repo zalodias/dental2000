@@ -83,11 +83,13 @@ export default async function CasoClinico({
           <NotionBlock blocks={blocks} />
         </div>
         <ComparisonSlider />
+        {page.properties.Testemunho && (
           <TestimonialQuote
             quote={
               (page.properties.Testemunho as any).rich_text?.[0]?.plain_text
             }
           />
+        )}
         <SectionHeader title="Explore outros casos clínicos" />
         <div className="grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-x-8 gap-y-12">
           {relatedClinicalCases.map((clinicalCase) => (
