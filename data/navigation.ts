@@ -8,6 +8,5 @@ export const navigation = [
   { name: 'Equipa', href: '/equipa' },
   { name: 'Especialidades', href: '/especialidades' },
   { name: 'Casos Clínicos', href: '/casos-clinicos' },
-  { name: 'Blog', href: '/blog' },
   { name: 'Contactos', href: '/contactos' },
 ];
