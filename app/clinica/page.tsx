@@ -101,6 +101,7 @@ export default async function Clinica() {
               key={member.id}
               name={(member.properties.Nome as any).title[0].plain_text}
               title={(member.properties.Função as any).rich_text[0].plain_text}
+              image={(member.properties.Imagem as any).url}
               className="w-full"
             />
           ))}

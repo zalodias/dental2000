@@ -29,6 +29,7 @@ profissionais altamente qualificados, comprometidos em proporcionar um atendimen
               key={member.id}
               name={(member.properties.Nome as any).title[0].plain_text}
               title={(member.properties.Função as any).rich_text[0].plain_text}
+              image={(member.properties.Imagem as any).url}
             />
           ))}
         </div>
@@ -41,6 +42,7 @@ profissionais altamente qualificados, comprometidos em proporcionar um atendimen
               key={member.id}
               name={(member.properties.Nome as any).title[0].plain_text}
               title={(member.properties.Função as any).rich_text[0].plain_text}
+              image={(member.properties.Imagem as any).url}
             />
           ))}
         </div>
@@ -53,6 +55,7 @@ profissionais altamente qualificados, comprometidos em proporcionar um atendimen
               key={member.id}
               name={(member.properties.Nome as any).title[0].plain_text}
               title={(member.properties.Função as any).rich_text[0].plain_text}
+              image={(member.properties.Imagem as any).url}
             />
           ))}
         </div>
