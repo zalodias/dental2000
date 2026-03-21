@@ -8,10 +8,19 @@ export default async function Equipa() {
     process.env.NOTION_EQUIPA_DATABASE_ID!,
   );
 
+  const directors = team.filter(
+    (member) =>
+      (member.properties.Função as any).select?.name === 'Direção Clínica',
+  );
+  const clinicians = team.filter(
+    (member) =>
+      (member.properties.Função as any).select?.name === 'Corpo Clínico',
+  );
+
   return (
     <>
       <Container className="flex items-center md:pt-30 lg:pt-40">
-        <div className="bg-background-neutral-subtle relative -mx-5 aspect-4/3 w-screen object-cover md:order-1 md:mx-0 md:aspect-3/2 md:w-full" />
+        <div className="bg-background-neutral-faded relative -mx-5 aspect-4/3 w-screen object-cover md:order-1 md:mx-0 md:aspect-3/2 md:w-full" />
         <SectionHeader
           eyebrow="A nossa equipa"
           title="Profissionais dedicados ao seu bem-estar"
@@ -24,40 +33,39 @@ profissionais altamente qualificados, comprometidos em proporcionar um atendimen
       <Container>
         <SectionHeader title="Direção Clínica" />
         <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-x-5 gap-y-10">
-          {team.map((member) => (
-            <ProfileCard
-              key={member.id}
-              name={(member.properties.Nome as any).title[0].plain_text}
-              title={(member.properties.Função as any).rich_text[0].plain_text}
-              image={(member.properties.Imagem as any).url}
-            />
-          ))}
+          {directors.map((member) => {
+            const especialidades =
+              (member.properties.Especialidade as any).multi_select
+                ?.map((e: { name?: string }) => e.name ?? '')
+                .filter(Boolean) ?? [];
+            return (
+              <ProfileCard
+                key={member.id}
+                name={(member.properties.Nome as any).title[0].plain_text}
+                title={especialidades.join(', ')}
+                image={(member.properties.Imagem as any).url}
+              />
+            );
+          })}
         </div>
       </Container>
       <Container>
-        <SectionHeader title="Medicina Dentária" />
+        <SectionHeader title="Corpo Clínico" />
         <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-x-5 gap-y-10">
-          {team.map((member) => (
-            <ProfileCard
-              key={member.id}
-              name={(member.properties.Nome as any).title[0].plain_text}
-              title={(member.properties.Função as any).rich_text[0].plain_text}
-              image={(member.properties.Imagem as any).url}
-            />
-          ))}
-        </div>
-      </Container>
-      <Container>
-        <SectionHeader title="Gestão de Pacientes" />
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-x-5 gap-y-10">
-          {team.map((member) => (
-            <ProfileCard
-              key={member.id}
-              name={(member.properties.Nome as any).title[0].plain_text}
-              title={(member.properties.Função as any).rich_text[0].plain_text}
-              image={(member.properties.Imagem as any).url}
-            />
-          ))}
+          {clinicians.map((member) => {
+            const especialidades =
+              (member.properties.Especialidade as any).multi_select
+                ?.map((e: { name?: string }) => e.name ?? '')
+                .filter(Boolean) ?? [];
+            return (
+              <ProfileCard
+                key={member.id}
+                name={(member.properties.Nome as any).title[0].plain_text}
+                title={especialidades.join(', ')}
+                image={(member.properties.Imagem as any).url}
+              />
+            );
+          })}
         </div>
       </Container>
     </>
