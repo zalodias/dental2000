@@ -5,7 +5,7 @@ import { Instagram } from '@/assets/icons/instagram';
 import Dental2000 from '@/assets/logos/dental2000/lockup-dark-horizontal.svg';
 import { Button } from '@/components/button';
 import { navigation } from '@/data/navigation';
-import useScrollDirection from '@/hooks/useScrollDirection';
+import useScrollDirection from '@/hooks/use-scroll-direction';
 import { Mail } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
