@@ -57,7 +57,7 @@ export default async function Contactos() {
                     </p>
                   </div>
                 </div>
-                <div className="bg-background-neutral-subtle relative aspect-3/2 w-full object-cover" />
+                <div className="bg-background-neutral-faded relative aspect-3/2 w-full object-cover" />
               </TabsContent>
             ))}
           </Tabs>
@@ -108,7 +108,7 @@ export default async function Contactos() {
           <Accordion items={questions} />
         </div>
       </Container>
-      <Container className="flex w-full flex-col gap-10">
+      <Container className="flex w-full flex-col items-center gap-10">
         <SectionHeader
           eyebrow="Redes Sociais"
           title="Acompanhe-nos nas redes sociais"
@@ -150,7 +150,7 @@ export default async function Contactos() {
         </div>
         <Ticker
           items={Array.from({ length: 8 }, (_, i) => (
-            <div key={i} className="bg-background-neutral-subtle size-full" />
+            <div key={i} className="bg-background-neutral-faded size-full" />
           ))}
           duration={30}
         />

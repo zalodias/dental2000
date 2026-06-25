@@ -23,7 +23,7 @@ export default async function Especialidades() {
               key={speciality.id}
               className="flex flex-col gap-6"
             >
-              <div className="bg-background-neutral-subtle relative aspect-3/2 w-full object-cover" />
+              <div className="bg-background-neutral-faded relative aspect-3/2 w-full object-cover" />
               <div className="flex flex-col gap-3">
                 <h3 className="text-title-large font-medium">
                   {(speciality.properties.Nome as any).title[0].plain_text}

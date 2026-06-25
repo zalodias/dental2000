@@ -42,7 +42,7 @@ export default async function Home() {
                 </Button>
               }
             />
-            <div className="bg-background-neutral-subtle relative aspect-2/3 w-full object-cover" />
+            <div className="bg-background-neutral-faded relative aspect-2/3 w-full object-cover" />
           </div>
         </Container>
       </section>
@@ -63,7 +63,7 @@ export default async function Home() {
       <SocialProof />
       <section className="bg-background-neutral-faded">
         <div className="flex flex-col lg:flex-row lg:items-center">
-          <div className="bg-background-neutral-subtle relative aspect-3/2 w-full object-cover lg:aspect-2/3" />
+          <div className="bg-background-neutral-faded relative aspect-3/2 w-full object-cover lg:aspect-2/3" />
           <Container className="flex w-full flex-col gap-5">
             <SectionHeader eyebrow="Marcações" title="Agende a sua consulta" />
             <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-5">
