@@ -27,7 +27,7 @@ export default async function Clinica() {
         />
         <Ticker
           items={Array.from({ length: 8 }, (_, i) => (
-            <div key={i} className="bg-background-neutral-subtle size-full" />
+            <div key={i} className="bg-background-neutral-faded size-full" />
           ))}
           duration={30}
         />
@@ -76,7 +76,7 @@ export default async function Clinica() {
         </div>
       </Container>
       <Container className="md:items-center md:gap-20 lg:flex-row">
-        <div className="bg-background-neutral-subtle relative aspect-3/4 w-full object-cover" />
+        <div className="bg-background-neutral-faded relative aspect-3/4 w-full object-cover" />
         <div className="flex flex-col gap-10">
           <SectionHeader
             eyebrow="Diretor Clínico"
@@ -96,15 +96,21 @@ export default async function Clinica() {
           className="max-w-full flex-row items-end justify-between"
         />
         <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-x-5 gap-y-10">
-          {team.map((member) => (
-            <ProfileCard
-              key={member.id}
-              name={(member.properties.Nome as any).title[0].plain_text}
-              title={(member.properties.Função as any).rich_text[0].plain_text}
-              image={(member.properties.Imagem as any).url}
-              className="w-full"
-            />
-          ))}
+          {team.map((member) => {
+            const especialidades =
+              (member.properties.Especialidade as any).multi_select
+                ?.map((e: { name?: string }) => e.name ?? '')
+                .filter(Boolean) ?? [];
+            return (
+              <ProfileCard
+                key={member.id}
+                name={(member.properties.Nome as any).title[0].plain_text}
+                title={especialidades.join(', ')}
+                image={(member.properties.Imagem as any).url}
+                className="w-full"
+              />
+            );
+          })}
         </div>
       </Container>
       <Container>
