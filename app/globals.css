@@ -9,22 +9,22 @@
 
   --color-*: initial;
   --color-transparent: transparent;
-  --color-background-neutral-default: hsl(0 0% 96%);
-  --color-background-neutral-strong: hsl(0 0% 80%);
-  --color-background-neutral-subtle: hsl(0 0% 88%);
-  --color-background-neutral-faded: hsl(0 0% 92%);
-  --color-background-neutral-inverse: hsl(0 0% 4%);
+  --color-background-neutral-default: hsl(30 32% 96%);
+  --color-background-neutral-strong: hsl(30 20% 80%);
+  --color-background-neutral-subtle: hsl(30 24% 88%);
+  --color-background-neutral-faded: hsl(30 28% 92%);
+  --color-background-neutral-inverse: hsl(30 8% 4%);
   --color-background-brand-default: hsl(30 40% 80%);
-  --color-foreground-neutral-default: hsl(0 0% 4%);
-  --color-foreground-neutral-strong: hsl(0 0% 12%);
-  --color-foreground-neutral-subtle: hsl(0 0% 24%);
-  --color-foreground-neutral-faded: hsl(0 0% 48%);
-  --color-foreground-neutral-inverse: hsl(0 0% 96%);
-  --color-border-neutral-default: hsl(0 0% 80%);
-  --color-border-neutral-strong: hsl(0 0% 64%);
-  --color-border-neutral-subtle: hsl(0 0% 88%);
-  --color-border-neutral-faded: hsl(0 0% 92%);
-  --color-border-neutral-inverse: hsl(0 0% 4%);
+  --color-foreground-neutral-default: hsl(30 24% 4%);
+  --color-foreground-neutral-strong: hsl(30 16% 12%);
+  --color-foreground-neutral-subtle: hsl(30 12% 24%);
+  --color-foreground-neutral-faded: hsl(30 8% 48%);
+  --color-foreground-neutral-inverse: hsl(30 32% 96%);
+  --color-border-neutral-default: hsl(30 20% 80%);
+  --color-border-neutral-strong: hsl(30 12% 64%);
+  --color-border-neutral-subtle: hsl(30 24% 88%);
+  --color-border-neutral-faded: hsl(30 28% 92%);
+  --color-border-neutral-inverse: hsl(30 24% 4%);
 
   --font-*: initial;
   --font-sans: var(--font-geist-sans);
